@@ -34,7 +34,7 @@ user ? Navigate('/') : <Login/>
   return (
   <>
 <div className="app relative">
-{/* <div className='fixed top-0 z-50 left-[25%]  bg-white'> <Notification/></div> */}
+<div className='fixed top-0 z-50 left-[25%]  bg-white'> <Notification/></div>
    <div className="navbar z-40  bg-white flex px-2 sm:px-4 md:px-8 fixed top-0 shadow-sm justify-center  shadow-[#ccc]   h-14 w-full ">
    <Navbar/>
    </div>

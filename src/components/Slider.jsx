@@ -41,18 +41,18 @@ const Slider = () => {
     }%))`;
  
 sliderContainerRef.current.style.transition = '1s'
-// let intervelID = setInterval(() => {
-// setIndex(prev => prev + 1)
-// if(index === data.length - 1){
-//   setIndex(0)
-// }
+let intervelID = setInterval(() => {
+setIndex(prev => prev + 1)
+if(index === data.length - 1){
+  setIndex(0)
+}
 
-// },8000)
+},8000)
 
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
-      // clearInterval(intervelID)
+      clearInterval(intervelID)
     };
   }, [index]);
 
