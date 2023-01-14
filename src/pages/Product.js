@@ -16,7 +16,7 @@ const dispatch = useDispatch()
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const response = await publicRequest.get(`products/${id}`);
+        const response = await publicRequest.get(`api/v1/products/${id}`);
         const data = await response.data;
 
         setProduct(data);
@@ -29,7 +29,7 @@ const dispatch = useDispatch()
 
   useEffect(() => {
     const getProduct = async () => {
-      const response1 = await publicRequest.get(`products/${idWithCategory}`);
+      const response1 = await publicRequest.get(`api/v1/products/${idWithCategory}`);
       const data1 = await response1.data;
       setProduct(data1);
     };
@@ -51,7 +51,6 @@ const dispatch = useDispatch()
    dispatch(addProduct({...product, quantity, size:product.size, color:product.color}))
   }
 
-
   return (
     <div className="sm:flex pt-[8vh] grid px-2 place-items-center gap-8  sm:justify-center  ">
       <img
@@ -70,7 +69,7 @@ const dispatch = useDispatch()
           <span>Color</span>
 
           { product && product.color && product.color.map((c) => {
-            console.log(c)
+           
               return  <span key={c} className={`w-5 h-5 rounded-full bg-${c}-dark`}></span>
             }) }
           {/* {product.color} */}

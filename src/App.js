@@ -28,9 +28,9 @@ const App = () => {
 const user = useSelector(state => state.user.currentUser)
 
 
-useEffect(() => {
-user ? Navigate('/') : <Login/>
-}, [user])
+// useEffect(() => {
+// user ? Navigate('/') : <Login/>
+// }, [user])
   return (
   <>
 <div className="app relative">
@@ -44,7 +44,7 @@ user ? Navigate('/') : <Login/>
  <Route path='/'  element={<Home/>}/>
 <Route path='/products' element={<ProductList/>} />
  <Route path='/products/:category' element={<ProductList/>}/>
- <Route path='/products/:id' element={<Product/>}/>
+ <Route path='/product/:id' element={<Product/>}/>
  <Route path='/products/:category/:id' element={<Product/>}/>
  <Route path='/cart'  element={<Cart/>}/>
  {/* <Route path='/login'>{user ? Navigate('/') : <Login/>}</Route>  */}
