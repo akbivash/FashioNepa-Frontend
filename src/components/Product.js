@@ -15,7 +15,7 @@ const location = useLocation()
       <div className="absolute w-full h-full invisible group-hover:visible transition-all group-hover:transition-all group-hover:bg-[rgba(0,0,0,0.3)] top-0 z-10 flex justify-center items-center">
         <div className="icons flex gap-3">
           <FaCartPlus className="bg-white p-1  text-tahiti-dark rounded-full text-2xl cursor-pointer  " />
-<Link to={category ? `${item._id}` : `products/${item._id}`}>
+<Link to={category ? `${item._id}` : `product/${item._id}`}>
 <FaSearch className="bg-white p-1  text-green-dark rounded-full text-2xl cursor-pointer" />
 
 </Link>
