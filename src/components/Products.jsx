@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Product from "./Product";
 import { popularProducts } from "../data";
-
+import { publicRequest } from "../requestMethods";
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -11,10 +11,10 @@ const Products = ({ category, filters, sort }) => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await axios.get(
+        const res = await publicRequest.get(
           category
-            ? `http://localhost:5000/api/v1/products?category=${category}`
-            : "http://localhost:5000/api/v1/products"
+            ? `api/v1/products?category=${category}`
+            : "api/v1/products"
         );
         setProducts(res.data);
       } catch (err) {

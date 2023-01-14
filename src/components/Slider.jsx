@@ -9,7 +9,7 @@ const data = [
     id: "121",
     title: "Pure cotton Hoodie",
     info: "Winter sells",
-    img: "https://as1.ftcdn.net/v2/jpg/03/20/68/66/1000_F_320686681_Ur6vdYQgDC9WiijiVfxlRyQffxOgfeFz.jpg",
+    img:"https://img.freepik.com/free-vector/promotion-fashion-banner_1188-223.jpg?w=2000"
   },
   {
     id: "122",
@@ -27,7 +27,7 @@ const data = [
     id: "124",
     title: "Winter jacket ",
     info: "New Fashion",
-    img: "https://img.freepik.com/free-vector/winter-season-celebration-sale-banner-template_23-2149898687.jpg?w=1060&t=st=1673441561~exp=1673442161~hmac=2799c0b62923fa707553f7cbec5d51cc300e2c9ef327ed7350c9796d449ee50c",
+    img:'https://as2.ftcdn.net/v2/jpg/03/65/85/47/1000_F_365854716_ZHB0YN3i3s0H7NjI9hiezH53D5nvoF0E.jpg'
   },
 ];
 
