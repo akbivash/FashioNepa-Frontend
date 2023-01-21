@@ -1,11 +1,23 @@
 import React from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { categories} from '../data'
 import Pay from './stripe/Pay'
 
 const Cart = () => {
+  const [quantity, setQuantity] = useState()
   const cart = useSelector(state => state.cart)
+
+const decrement = (quantity)=> {
+ if(quantity > 1){
+quantity--
+ }
+}
+const increment = (quantity) => {
+quantity++
+console.log(quantity)
+}
+
   return (
     <div className=' grid gap-4 py-4 '>
      
@@ -24,8 +36,8 @@ const Cart = () => {
  <div className='p-2 grid gap-3'>
  {cart.products.map((product, index) => {
     return   <div key={index} className='flex  flex-3 flex-col gap-4 md:flex-row sm:gap-10 p-3 shadow-sm   shadow-green-dark'>
-       <div className='flex gap-4 md:gap-20 justify-center'>
-       <div className='w-full max-w[340px]'><img src={product.img} alt="" className=' object-cover w-full h-[200px]'/></div>
+       <div className='md:flex gap-4 md:gap-20 justify-center'>
+       <div className='w-full max-w[340px]'><img src={product.img} alt="" className='  w-full h-[200px]'/></div>
         <div className='grid gap-4'>
           <div >  <span>Product </span><span className='cart-product-detail' >{product.title}</span></div>
        <div>     <span>ID  </span><span className='cart-product-detail' >{product._id}</span></div>
@@ -37,9 +49,9 @@ const Cart = () => {
 
        <div className='grid  '>
  <div className='flex gap-5 items-center'>
-   <span className='bg-yellow-dark cursor-pointer w-5 h-1 '></span>
+   <span className='bg-yellow-dark cursor-pointer w-5 h-1 ' onClick={() => decrement(product.quantity)}></span>
    <span className='text-2xl'>{product.quantity}</span>
-   <span  className='bg-green-dark cursor-pointer w-5 h-1 relative'>
+   <span  className='bg-green-dark cursor-pointer w-5 h-1 relative' onClick={() => increment(product.quantity)}>
    <span  className='bg-green-dark w-1 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-5 absolute'></span>
    </span>
    </div>

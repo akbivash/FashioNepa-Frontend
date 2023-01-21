@@ -14,23 +14,26 @@ import {
 } from 'redux-persist'
 const rootReducers = combineReducers({
     user:userReducer,
-    cart:cartReducer
+    cart:cartReducer,
 })
 const persistConfig = {
     key: 'root',
     version: 1,
-    storage,
+    storage
   }
   
   const persistedReducer = persistReducer(persistConfig, rootReducers)
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
+    getDefaultMiddleware(
+      {
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: 
+        [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }
+    ),
 })
 
 export let persistor = persistStore(store)

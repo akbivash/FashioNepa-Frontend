@@ -6,7 +6,7 @@ const Pay = () => {
   const cart = useSelector((s) => s.cart);
 
   function handleSubmit() {
-   fetch("http://localhost:5000/api/v1/checkout/payment",{
+   fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/checkout/payment`,{
     method:"POST",
     headers:{
       'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ const Pay = () => {
    }).then(res => {
     if(res.ok) return res.json()
    }).then(({url}) => window.location = url)
-  
+  .catch(err => console.log(err))
   }
 
   return (
