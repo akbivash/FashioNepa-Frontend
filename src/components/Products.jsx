@@ -5,7 +5,7 @@ import { publicRequest } from "../requestMethods";
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+const[isError, setIsError] = useState(false)
  
   useEffect(() => {
     const getProduct = async () => {
@@ -18,6 +18,7 @@ const Products = ({ category, filters, sort }) => {
         setProducts(res.data);
       } catch (err) {
         console.log(err);
+        setIsError(true)
       }
     };
     getProduct();
@@ -64,7 +65,6 @@ const Products = ({ category, filters, sort }) => {
   }, [products, sort]);
 
 
-
   return (
     <div className="flex flex-wrap relative h-full mt-4 justify-center gap-4  px-4">
       {filteredProducts.length != 0
@@ -75,7 +75,8 @@ const Products = ({ category, filters, sort }) => {
          
             return <Product item={item} key={index} category={category} />;
           })}
-      {products.length === 0  ? 'No Items Found': '' }
+      { isError ? 'Server is not connected': products.length === 0  ? 'No Items Found': '' }
+
     </div>
   );
 };

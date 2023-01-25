@@ -18,6 +18,7 @@ import {
   Navigate,
   Link,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 import CategoryItem from "./components/CategoryItem";
 import { useEffect } from "react";
@@ -33,15 +34,19 @@ import Account from "./pages/Account";
 import Logout from "./pages/Logout";
 import Signout from "./pages/Signout";
 
-const App = () => {
+const App = ({children}) => {
+ const {pathname} = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   // let Navigate = useNavigate();
   // const user = useSelector((state) => state.user.currentUser);
   // useEffect(() => {
   // user ? Navigate('/') : <Login/>
   // }, [user])
-
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  useEffect(() => {
+  
     document.addEventListener("click", (e) => {
       if (
         e.currentTarget != "undefined" &&
@@ -49,12 +54,13 @@ const App = () => {
       ) {
         closeSidebar();
       }
+   
     });
   }, []);
 
   const handleMenu = () => setIsSidebarOpen(!isSidebarOpen);
   const closeSidebar = () => setIsSidebarOpen(false);
-  
+
   return (
     <>
       <div className="app relative">
@@ -72,7 +78,7 @@ const App = () => {
             <Route path="/product/:id" element={<Product />} />
             <Route path="/products/:category/:id" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" exact element={<Login />} />
             <Route path="/logout" element={<Logout/>} />
             <Route path="/account/signout" element={<Signout/>} />
             <Route path="/register" element={<Register />} />

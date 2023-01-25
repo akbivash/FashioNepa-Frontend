@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Products from './Products'
 const ProductList = () => {
@@ -8,6 +8,10 @@ const ProductList = () => {
 const[filters, setFilter] = useState({})
 
 const [sort, setSort] = useState('newest')
+
+useEffect(() => {
+  window.scrollTo(0, 0)
+}, [])
 
 const handleFilter = (e) => {
   setFilter({...filters,
@@ -18,6 +22,7 @@ const handleFilter = (e) => {
 const handleSort = (e)=> {
   setSort(e.target.value)
 }
+
   return (
   <><div className='p-4 mt-4 grid gap-4 sm:flex justify-between items-center'>
     <div className='flex gap-2 '>

@@ -2,55 +2,93 @@ import React from "react";
 import Slider from "../components/Slider";
 import ProductList from "../components/ProductList";
 import CategoryItem from "../components/CategoryItem";
-import {useRef, useEffect} from 'react'
-
+import { useRef, useEffect } from "react";
+import { Link, span } from "react-router-dom";
+import { useState } from "react";
+import { BsArrowDownShort, BsArrowUpShort } from "react-icons/bs";
+const categories = [
+  "Men's Fashion",
+  "Women's Fashion",
+  "Sports & Entertainment",
+  "90's Fashion",
+  "Made in Nepal",
+];
 const Home = () => {
-  const ref = useRef()
+  const [showCategory, setShowCategory] = useState(false);
+  const ref = useRef();
 
   useEffect(() => {
-window.addEventListener('scroll', showCat)
+    window.addEventListener("scroll", showChooseBtn);
 
-return () => {
-window.removeEventListener('scroll', showCat)
+    showChooseBtn();
+    return () => {
+      window.removeEventListener("scroll", showChooseBtn);
+    };
+  }, [showCategory]);
 
-}
-  },[])
-
-  const showCat = (e) => {
- 
-    if(window.scrollY > 200){
-      ref.current.style.display = 'block'
-    }else{
-      ref.current.style.display = 'none'
-
+  function showChooseBtn() {
+    if (window.scrollY > 200) {
+      ref.current.style.display = "block";
+    } else {
+      ref.current.style.display = "none";
     }
   }
 
   return (
     <div className="home relative overflow-hidden">
       <div className="flex">
-        <div className="md:grid place-items-center text-lg hidden w-80">
-          <span>Men's Fashion</span>
-          <span>Women's Fashion</span>
-          <span>Sports & Entertainment</span>
-          <span>90s Fashion</span>
-          <span>Made in Nepal</span>
+        <div className="md:grid hidden pl-10 pr-20  py-10 ">
+          {categories.map((cat) => {
+            return (
+              <Link
+                to={`products/${cat.toLowerCase().replace(/\s+/g, "")}`}
+                key={cat}
+                className="cursor-pointer h-fit"
+              >
+                {cat}
+              </Link>
+            );
+          })}
         </div>
+
         <Slider />
 
-        <div className="z-30 fixed w-full " ref={ref}>
-          <select className="grid gap-4 text-md md:hidden  outline-none    w-full py-2 text-center shadow-lg ">
-            <option defaultChecked>Choose a category</option>
-            <option className="h-10" value="Men's Fashion">
-              Men Fashion
-            </option>
-            <option value="Women's Fashion">Women's Fashion</option>
-            <option value="Sports & Entertainment">
-              Sports & Entertainment
-            </option>
-            <option value="90s Fashion">90s Fashion</option>
-            <option value="Made in Nepal">Made in Nepal</option>
-          </select>
+        <div
+          className="z-30 fixed  w-full grid shadow-sm shadow-[#aaae9f] bg-white"
+          ref={ref}
+        >
+          <span
+            className=" flex items-center font-bold text-gray-default pl-10 gap-2 w-[50%] z-50     cursor-pointer"
+            onMouseOver={() => setShowCategory(true)}
+            onMouseOut={() => setShowCategory(false)}
+          >
+            Choose{" "}
+            <span className="text-3xl">
+              {" "}
+              {showCategory ? <BsArrowUpShort /> : <BsArrowDownShort />}
+            </span>
+          </span>
+          <div
+            onMouseOver={() => setShowCategory(true)}
+            onMouseOut={() => setShowCategory(false)}
+            className={`${
+              showCategory
+                ? "grid w-[50%] absolute left-0 bg-white border-[#dfe0dc] border-2 place-items-center gap-2 py-2"
+                : "hidden "
+            }`}
+          >
+            {categories.map((cat) => {
+              return (
+                <Link
+                  to={`products/${cat.toLowerCase().replace(/\s+/g, "")}`}
+                  key={cat}
+                  className={` border-b-gray-light cursor-pointer border-b-[1px]`}
+                >
+                  {cat}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
 
