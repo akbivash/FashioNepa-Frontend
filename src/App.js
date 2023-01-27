@@ -33,12 +33,15 @@ import Sidebar from "./components/Sidebar";
 import Account from "./pages/Account";
 import Logout from "./pages/Logout";
 import Signout from "./pages/Signout";
+import Watchlist from "./pages/Watchlist";
+import Modal from "./components/Modal";
+const App = () => {
 
-const App = ({children}) => {
+ 
  const {pathname} = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   // let Navigate = useNavigate();
-  // const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user.currentUser);
   // useEffect(() => {
   // user ? Navigate('/') : <Login/>
   // }, [user])
@@ -64,6 +67,7 @@ const App = ({children}) => {
   return (
     <>
       <div className="app relative">
+      
         <div className="navbar z-40  bg-white flex px-2 sm:px-4 md:px-8 fixed top-0 shadow-sm justify-center  shadow-[#ccc]   h-14 w-full ">
           <Navbar handleMenu={handleMenu} isSidebarOpen={isSidebarOpen} />
           <div className={`${isSidebarOpen ? "fixed right-0 top-[9vh] bg-white shadow-md  z-[100] w-full max-w-md  duration-300 opacity-100"
@@ -74,16 +78,18 @@ const App = ({children}) => {
             <Route path="/" element={<Home isSidebarOpen={isSidebarOpen} />} />
             <Route path="/account" element={<Account/>}/>
             <Route path="/products" element={<ProductList />} />
-            <Route path="/products/:category" element={<ProductList />} />
+            <Route path="/products/:category" element={<ProductList  />} />
             <Route path="/product/:id" element={<Product />} />
+            <Route path="/watchlist/product/:id" element={<Product />} />
             <Route path="/products/:category/:id" element={<Product />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/cart" element={ <Cart /> } />
             <Route path="/login" exact element={<Login />} />
             <Route path="/logout" element={<Logout/>} />
             <Route path="/account/signout" element={<Signout/>} />
             <Route path="/register" element={<Register />} />
             <Route path="/checkout" element={<Pay />} />
             <Route path="/checkout/success" element={<Success />} />
+            <Route path="/watchlist" element={<Watchlist />} />
           </Routes>
         </div>
         <div className="bg-green-dark">

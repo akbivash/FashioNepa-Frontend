@@ -15,6 +15,7 @@ const[isError, setIsError] = useState(false)
             ? `api/v1/products?category=${category}`
             : "api/v1/products"
         );
+       
         setProducts(res.data);
       } catch (err) {
         console.log(err);
@@ -66,14 +67,14 @@ const[isError, setIsError] = useState(false)
 
 
   return (
-    <div className="flex flex-wrap relative h-full mt-4 justify-center gap-4  px-4">
+    <div className="grid grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))]  sm:grid-cols-3  place-items-center lg:grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]  relative h-full mt-4 gap-2  ">
       {filteredProducts.length != 0
         ? filteredProducts.map((item, index) => {
             return <Product item={item} key={index} category={category}/>;
           })
         : products.map((item, index) => {
          
-            return <Product item={item} key={index} category={category} />;
+            return <Product item={item} key={index} category={category}  />;
           })}
       { isError ? 'Server is not connected': products.length === 0  ? 'No Items Found': '' }
 

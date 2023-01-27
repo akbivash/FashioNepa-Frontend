@@ -49,8 +49,9 @@ const dispatch = useDispatch()
 
   function addToCart() {
    dispatch(addProduct({...product, quantity, size:product.size, color:product.color}))
+  // alert('Item added to the cart')
+ 
   }
-
   return (
     <div className="sm:flex pt-[8vh] grid px-2 place-items-center gap-8  sm:justify-center  ">
       <img
@@ -67,21 +68,20 @@ const dispatch = useDispatch()
         
         <div className="flex items-center gap-3">
           <span>Color</span>
-
-          { product && product.color && product.color.map((c) => {
+          <select className=" mx-2 border-2 text-black rounded-sm outline-none ">
+          { product && product.color && product.color.map((color) => {
            
-              return  <span key={c} className={`w-5 h-5 rounded-full bg-${c}-dark`}></span>
+              return    <option value={color} key={color} >{color}</option>
             }) }
-          {/* {product.color} */}
+            </select>
 
-          {/* <span  className={`w-5 h-5 rounded-full bg-${product.color}`}></span> */}
           <div className="size_btn flex">
             <span>Size</span>
             <select className=" mx-2 border-2 text-black rounded-sm outline-none ">
-              <option value="xs">{product.size}</option>
-              <option value="sm">Sm</option>
-              <option value="lg">Lg</option>
-              <option value="xl">Xl</option>
+          
+              {product.size && product.size.map(size => {
+                return <option value={size} key={size}>{size}</option>
+              })}
             </select>
           </div>
         </div>

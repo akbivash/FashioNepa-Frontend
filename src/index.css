@@ -20,6 +20,12 @@ li{
 .categories select option *{
 @apply py-5
 }
+.form div{
+@apply grid
+}
+.form div input{
+@apply outline-none border-[1px] border-gray-light rounded-sm px-3 py-1
+}
 }
 
 :root{

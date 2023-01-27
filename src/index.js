@@ -9,11 +9,11 @@ const root = createRoot(document.getElementById('root')); // createRoot(containe
 root.render(
 
       <Provider store={store}>
-       <PersistGate loading={null} persistor={persistor}>
+       {/* <PersistGate loading={null} persistor={persistor}> */}
          <BrowserRouter>
        <App />
        </BrowserRouter>
-       </PersistGate>
+       {/* </PersistGate> */}
       </Provider>
      
 );

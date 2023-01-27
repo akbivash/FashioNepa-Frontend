@@ -3,13 +3,13 @@ import Slider from "../components/Slider";
 import ProductList from "../components/ProductList";
 import CategoryItem from "../components/CategoryItem";
 import { useRef, useEffect } from "react";
-import { Link, span } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useState } from "react";
 import { BsArrowDownShort, BsArrowUpShort } from "react-icons/bs";
 const categories = [
   "Men's Fashion",
   "Women's Fashion",
-  "Sports & Entertainment",
+  "Sports  Entertainment",
   "90's Fashion",
   "Made in Nepal",
 ];
@@ -54,11 +54,11 @@ const Home = () => {
         <Slider />
 
         <div
-          className="z-30 fixed  w-full grid shadow-sm shadow-[#aaae9f] bg-white"
+          className="z-30 fixed w-full grid shadow-sm shadow-[#aaae9f] bg-white"
           ref={ref}
         >
           <span
-            className=" flex items-center font-bold text-gray-default pl-10 gap-2 w-[50%] z-50     cursor-pointer"
+            className=" flex items-center font-bold text-gray-default md:hidden pl-10 gap-2 max-w-[200px] z-50     cursor-pointer"
             onMouseOver={() => setShowCategory(true)}
             onMouseOut={() => setShowCategory(false)}
           >
@@ -73,7 +73,7 @@ const Home = () => {
             onMouseOut={() => setShowCategory(false)}
             className={`${
               showCategory
-                ? "grid w-[50%] absolute left-0 bg-white border-[#dfe0dc] border-2 place-items-center gap-2 py-2"
+                ? "grid max-w-[300px] absolute left-0 bg-white border-[#dfe0dc] border-2 place-items-center gap-2 p-3"
                 : "hidden "
             }`}
           >

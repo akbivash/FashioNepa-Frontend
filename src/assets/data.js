@@ -12,6 +12,10 @@ export const sidebarLinks = [
       link: "/help",
     },
     {
+      name: "watchlist",
+      link: "/watchlist",
+    },
+    {
       name: "logout",
       link: "/logout",
     },
@@ -48,28 +52,28 @@ export const sidebarLinks = [
     export const categories = [
       {
         id: 990,
-        img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        title: "SHIRT STYLE!",
-        cat: "women's fashion"
+        img: "https://www.adidas.co.za/on/demandware.static/-/Sites-adidas-navigation-za/en_ZA/dwefb60b60/Sneakers%20Women's%20Shoes%20PLP%20Banner%20M.jpg",
+        title: "Women Shoes",
+        cat: "women'sshoes"
       },
       {
         id: 991,
-        img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        title: "LOUNGEWEAR LOVE",
-        cat:"women's fashion"
+        img: "https://m.media-amazon.com/images/I/81tJ6kWc1+L._AC_SL1500_.jpg",
+        title: "Summer Cap",
+        cat:"cap"
       },
       {
         id: 992,
-        img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-        title: "LIGHT JACKETS",
-        cat:"women's fashion"
+        img: "https://i.insider.com/62ab95701c7744001959c43d?width=1136&format=jpeg",
+        title: "Drinks",
+        cat:"alcohol"
     
       },
       {
         id: 993,
-        img:'https://i.pinimg.com/736x/2a/30/d8/2a30d8f21e927983453045000ee7dc2f.jpg',
-        title: "Trouser",
-        cat:"women's fashion"
+        img:'https://static.nike.com/a/videos/t_PDP_1280_v1/f_auto,q_auto:eco,so_4.27/6431b9fc-ab13-428f-8ac5-c1446b7309b2/waffle-one-shoes-1JSWJP.jpg',
+        title: "Men Shoes",
+        cat:"men'sshoes"
     
       },
     ];

@@ -6,6 +6,7 @@ import {
   BsYoutube,
   BsTelephoneFill,
 } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import { ImLocation2 } from "react-icons/im";
 import { FaCcVisa, FaEnvelope } from "react-icons/fa";
 import { icons } from "../assets/data";
@@ -41,26 +42,26 @@ const Footer = () => {
         <h4 className="text-2xl">Useful Links</h4>
         <div className="flex gap-10 font-[500]">
           <ul className="grid  gap-3">
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">Man Fashion</a>
-            </li>
-            <li>
-              <a href="#">Women Fashion</a>
-            </li>
-            <li>
-              <a href="#">For Everyone</a>
-            </li>
-            <li>
-              <a href="#">Order Tracker</a>
-            </li>
+           <Link to='/'>
+              Home
+            </Link>
+           <Link to="/products/men'sfashion">
+              Men Fashion
+            </Link>
+           <Link to="women'sfashion">
+              Women Fashion
+            </Link>
+           <Link to='/products'>
+              For Everyone
+            </Link>
+           <Link>
+              Order Tracker
+            </Link>
           </ul>
           <ul className="flex flex-col gap-3">
-            <li>Cart</li>
-            <li>My Account</li>
-            <li>Terms</li>
+           <Link to='/cart'>Cart</Link>
+           <Link to='/account'>My Account</Link>
+           <Link>Terms</Link>
           </ul>
         </div>
       </div>

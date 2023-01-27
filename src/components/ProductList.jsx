@@ -52,7 +52,6 @@ const handleSort = (e)=> {
     </div>
   </div>
      <Products
-    
        category={category}
         filters={filters}
          sort={sort}/>

@@ -7,13 +7,11 @@ import {
   AiOutlineMenu,
   AiOutlineSearch,
   AiOutlineShoppingCart,
-  AiOutlineHome
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-
 const Navbar = ({ handleMenu, isSidebarOpen }) => {
-  const quantity = useSelector((s) => s.cart.quantity);
+  const quantity = useSelector(state => state.cart.quantity);
   const [isSearchboxOpen, setIsSearchboxOpen] = useState(true);
 
   useEffect(() => {
@@ -78,7 +76,10 @@ const Navbar = ({ handleMenu, isSidebarOpen }) => {
             <Link to="/login">Login</Link>
             <Link to="/account">Account</Link>
             <Link to="/help">Help</Link>
-            <Link to='/' className="grid place-items-center" ><FaHome/></Link>
+            {/* <Link to='/' className="grid place-items-center" ><FaHome/></Link> */}
+            
+         
+
           </div>
         </div>
       </div>
