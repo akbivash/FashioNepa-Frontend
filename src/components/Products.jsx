@@ -16,7 +16,7 @@ const category = useParams().category
       try {
         const res = await publicRequest.get(
           category
-            ? `api/v1/products/?category=${category}`
+            ? `api/v1/products/?category=${category}&page=${page}&limit=${limit}`
             : `api/v1/products/?page=${page}&limit=${limit}`
         );
        
@@ -28,7 +28,7 @@ const category = useParams().category
     };
     getProduct();
    
-  }, [ category]);
+  }, [ page, category]);
 
   useEffect(() => {
    setFilteredProducts(
@@ -80,10 +80,8 @@ const category = useParams().category
           })}
 
     </div>
-    <div>
-  
-    </div>
-    <Pagination page={page} setPage={setPage}/>
+   
+    {!isError && <Pagination page={page} setPage={setPage} category={category}/>}
     <span className="flex justify-center">  { isError ? 'Server is not connected, try again': products.length === 0  ? 'No Items Found': '' }</span>
 </>
   );

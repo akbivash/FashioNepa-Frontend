@@ -72,7 +72,7 @@ const App = () => {
           <div className={`${isSidebarOpen ? "fixed right-0 top-[9vh] bg-white shadow-md  z-[100] w-full max-w-md  duration-300 opacity-100"
            :" absolute right-[-50%] opacity-0 top-[9vh] duration-500"}`}><Sidebar/> </div>
         </div>
-        <div className="mt-10 py-4 z[2] max-w-[1400px] mx-auto min-h-[100vh]">
+        <div className="mt-10 py-4 z[2] max-w-[1400px] mx-auto ">
           <Routes>
             <Route path="/" element={<Home isSidebarOpen={isSidebarOpen} />} />
             <Route path="/account" element={<Account/>}/>

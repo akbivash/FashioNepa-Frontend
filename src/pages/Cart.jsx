@@ -3,11 +3,14 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Pay from './stripe/Pay'
-import { decreaseQuantity, increaseQuantity, removeProduct } from '../redux/cartSlice'
+import Modal from '../components/Modal'
+import { decreaseQuantity, increaseQuantity, removeProduct, resetState } from '../redux/cartSlice'
+
 const Cart = () => {
+  const[showModal, setShowModal] = useState(false)
   const cart = useSelector(state => state.cart)
   const watchlist = cart.watchlist
-  console.log(watchlist)
+  
 const dispatch = useDispatch()
 
 const increment = (product) => {
@@ -24,23 +27,27 @@ cart.products.map(product => {
   }
 })
 }
+const resetAll = () => {
+  dispatch(resetState)
+  setShowModal(false)
+}
 
   return (
-    <div className=' grid gap-4 py-4 '>
+    <div className=' grid  gap-4 py-4 '>
      
  {/* top  */}
- <div className="top grid gap-3 place-items-center sm:flex sm:justify-around">
+ <div className="top grid gap-3 place-items-center  sm:flex sm:justify-around">
 <Link to='/products' className='bg-green-dark w-[fit-content] text-white p-2  h-[fit-content] rounded-sm'>CONTINUE SHOPPING</Link>
 <div className='flex gap-7 flex-col justify-center items-center'>
 <h2 className='text-xl sm:text-3xl uppercase text-green-dark'>Your Bag</h2>
-<div className='flex gap-2 sm:gap-10 text-center  '><span>Shopping Bag()</span><Link to='/watchlist'>Your Wishlist({watchlist.length  ? watchlist.length : 0})</Link></div>
+<div className='flex gap-2 sm:gap-10 text-center font-semibold '><span >Shopping Bag({cart.quantity})</span><Link to='/watchlist'>Your Wishlist({watchlist.length})</Link></div>
 </div>
   </div>
 
 {/* bottom */}
 <div className="lg:flex grid place-items-center items-start lg:justify-around gap-4">
  <div className='p-2 grid gap-3'>
- {cart.products.map((product, index) => {
+ {cart.products.length != 0 && cart.products.map((product, index) => {
  
     return   <div key={index} className='flex  flex-3 flex-col gap-4 md:flex-row sm:gap-10 p-3 shadow-sm   shadow-green-dark'>
        <div className='flex gap-4 md:gap-20 justify-center'>
@@ -88,6 +95,14 @@ cart.products.map(product => {
 </div>
 
 
+<button className='bg-yellow-dark w-fit mx-auto p-2 text-white rounded-sm' onClick={() => setShowModal(true)}>Reset</button>
+{showModal && <Modal >
+<span>  <h2>Are you sure ?</h2></span>
+<div className='flex gap-3'>
+  <button className='bg-yellow-dark p-1 px-5 rounded-sm' onClick={resetAll}>yes</button>
+  <button  className='bg-green-dark p-1 px-5 rounded-sm' onClick={() => setShowModal(false)}>no</button>
+</div>
+</Modal>}
    </div>
 
   )

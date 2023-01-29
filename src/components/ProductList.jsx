@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useLocation ,useParams} from 'react-router-dom'
+import Dropdown from './Dropdown'
 import Products from './Products'
 const ProductList = () => {
 
@@ -22,7 +23,7 @@ const handleSort = (e)=> {
 }
 
   return (
-  <><div className='p-4 mt-4 grid gap-4 sm:flex justify-between items-center'>
+  <><div className='p-4 mt-4 grid gap-4 sm:flex justify-between items-center relative'>
     <div className='flex gap-2 '>
       <h2>Filter Products </h2>
       <select className='border-gray border-[1px] rounded-sm' name='color' onChange={handleFilter}  >
@@ -52,8 +53,10 @@ const handleSort = (e)=> {
      <Products
         filters={filters}
          sort={sort}/>
-    
-   {/* </div> */}
+ 
+<div className='dropdown fixed top-14  z-[300]'>
+<Dropdown/>
+ </div>
   </>
   )
 }

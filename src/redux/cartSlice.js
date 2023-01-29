@@ -1,6 +1,6 @@
 import { createSlice,current } from "@reduxjs/toolkit";
 import { enableMapSet } from 'immer';
-enableMapSet()
+// enableMapSet()
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -59,10 +59,16 @@ removeFromWatchlist:(state, action) => {
   state.watchlist.splice(
     state.watchlist.findIndex(item => item._id === action.payload), 1
   )
+},
+resetState:(state) => {
+state.products = []
+state.quantity = 0
+state.totalPrice = 0
+state.watchlist = []
 }
   }
 });
 
 
-export const { addProduct, removeProduct, increaseQuantity, decreaseQuantity, addToWatchList, removeFromWatchlist } = cartSlice.actions;
+export const { addProduct, removeProduct, increaseQuantity, decreaseQuantity, addToWatchList, removeFromWatchlist, resetState } = cartSlice.actions;
 export default cartSlice.reducer;
