@@ -7,6 +7,7 @@ import { decreaseQuantity, increaseQuantity, removeProduct } from '../redux/cart
 const Cart = () => {
   const cart = useSelector(state => state.cart)
   const watchlist = cart.watchlist
+  console.log(watchlist)
 const dispatch = useDispatch()
 
 const increment = (product) => {
@@ -17,10 +18,8 @@ const decrement = (product) => {
 }
 
 const removeItem = (id) =>{
- 
 cart.products.map(product => {
   if(product._id === id){
- 
     dispatch(removeProduct({...product}))
   }
 })
@@ -34,7 +33,7 @@ cart.products.map(product => {
 <Link to='/products' className='bg-green-dark w-[fit-content] text-white p-2  h-[fit-content] rounded-sm'>CONTINUE SHOPPING</Link>
 <div className='flex gap-7 flex-col justify-center items-center'>
 <h2 className='text-xl sm:text-3xl uppercase text-green-dark'>Your Bag</h2>
-<div className='flex gap-2 sm:gap-10 text-center  '><span>Shopping Bag({cart.products.length})</span><Link to='/watchlist'>Your Wishlist({watchlist.length})</Link></div>
+<div className='flex gap-2 sm:gap-10 text-center  '><span>Shopping Bag()</span><Link to='/watchlist'>Your Wishlist({watchlist.length  ? watchlist.length : 0})</Link></div>
 </div>
   </div>
 
@@ -42,7 +41,7 @@ cart.products.map(product => {
 <div className="lg:flex grid place-items-center items-start lg:justify-around gap-4">
  <div className='p-2 grid gap-3'>
  {cart.products.map((product, index) => {
-  
+ 
     return   <div key={index} className='flex  flex-3 flex-col gap-4 md:flex-row sm:gap-10 p-3 shadow-sm   shadow-green-dark'>
        <div className='flex gap-4 md:gap-20 justify-center'>
        <div className='w-full flex-2 max-w[340px]'><img src={product.img} alt="" className='  w-full h-[200px]'/></div>

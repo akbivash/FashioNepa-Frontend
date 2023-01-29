@@ -34,7 +34,6 @@ import Account from "./pages/Account";
 import Logout from "./pages/Logout";
 import Signout from "./pages/Signout";
 import Watchlist from "./pages/Watchlist";
-import Modal from "./components/Modal";
 const App = () => {
 
  
@@ -78,10 +77,10 @@ const App = () => {
             <Route path="/" element={<Home isSidebarOpen={isSidebarOpen} />} />
             <Route path="/account" element={<Account/>}/>
             <Route path="/products" element={<ProductList />} />
-            <Route path="/products/:category" element={<ProductList  />} />
+            <Route path="/:category" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />
-            <Route path="/watchlist/product/:id" element={<Product />} />
-            <Route path="/products/:category/:id" element={<Product />} />
+            <Route path="/products/product/:id" element={<Product />} />
+            <Route path="/:category/:id" element={<Product />} />
             <Route path="/cart" element={ <Cart /> } />
             <Route path="/login" exact element={<Login />} />
             <Route path="/logout" element={<Logout/>} />
@@ -90,6 +89,7 @@ const App = () => {
             <Route path="/checkout" element={<Pay />} />
             <Route path="/checkout/success" element={<Success />} />
             <Route path="/watchlist" element={<Watchlist />} />
+            <Route path="/watchlist/:id" element={<Product/>} />
           </Routes>
         </div>
         <div className="bg-green-dark">

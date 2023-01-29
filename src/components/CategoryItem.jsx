@@ -6,7 +6,7 @@ const CategoryItem = () => {
   return (
     <div  className='w-full  z-10 mb-20 items-center flex flex-wrap justify-center gap-4 md:gap-10 '>
       {categories.map((category, index) => {
-        return <Link  to={`products/${category.cat.replace(/ /g,'')}`} key={category.id}
+        return <Link  to={`${category.cat.replace(/ /g,'')}`} key={category.id}
         className='w-full  h-[320px] rounded-lg overflow-hidden mt-8 max-w-[350px] sm:max-w-[300px]  relative '>
         {/* <div> */}
     <img src={category.img} alt="img" className='w-full h-full bg-black object-cover '/>

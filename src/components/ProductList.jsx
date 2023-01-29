@@ -1,12 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation ,useParams} from 'react-router-dom'
 import Products from './Products'
 const ProductList = () => {
-  const location = useLocation()
- const category = location.pathname.split('/')[2]
-const[filters, setFilter] = useState({})
 
+const[filters, setFilter] = useState({})
 const [sort, setSort] = useState('newest')
 
 useEffect(() => {
@@ -52,7 +50,6 @@ const handleSort = (e)=> {
     </div>
   </div>
      <Products
-       category={category}
         filters={filters}
          sort={sort}/>
     

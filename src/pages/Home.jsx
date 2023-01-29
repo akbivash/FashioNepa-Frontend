@@ -80,7 +80,7 @@ const Home = () => {
             {categories.map((cat) => {
               return (
                 <Link
-                  to={`products/${cat.toLowerCase().replace(/\s+/g, "")}`}
+                  to={`${cat.toLowerCase().replace(/\s+/g, "")}`}
                   key={cat}
                   className={` border-b-gray-light cursor-pointer border-b-[1px]`}
                 >

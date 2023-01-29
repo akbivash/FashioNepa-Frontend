@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { addProduct } from "../redux/cartSlice";
+import { Link } from "react-router-dom";
 
 const Product = () => {
 const dispatch = useDispatch()
 
   const [product, setProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const[isInCart, setIsInCart] = useState(false)
+  const cart = useSelector(state => state.cart)
   let location = useLocation();
   let id = location.pathname.split("/")[2];
   let idWithCategory = location.pathname.split("/")[3];
-
+const watchlist = useSelector(state => state.cart.watchlist)
+console.log(watchlist)
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -25,8 +29,17 @@ const dispatch = useDispatch()
       }
     };
     getProduct();
+  
+   
   }, [id]);
-
+useEffect(() => {
+  cart.products.map(cart => {
+      if(cart._id === id){
+        setIsInCart(true)
+       
+      }
+    })
+},[product])
   useEffect(() => {
     const getProduct = async () => {
       const response1 = await publicRequest.get(`api/v1/products/${idWithCategory}`);
@@ -48,8 +61,9 @@ const dispatch = useDispatch()
   }
 
   function addToCart() {
+   
    dispatch(addProduct({...product, quantity, size:product.size, color:product.color}))
-  // alert('Item added to the cart')
+  
  
   }
   return (
@@ -100,12 +114,14 @@ const dispatch = useDispatch()
               ></span>
             </span>
           </div>
-          <button
+          {
+            isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white ">Open Cart</Link> :<button
             className="bg-green-dark p-3 rounded-sm text-white "
             onClick={addToCart}
           >
             ADD TO CART
           </button>
+          }
         </div>
       </div>
     </div>
