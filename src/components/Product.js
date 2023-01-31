@@ -2,28 +2,31 @@ import React from 'react'
 import { useState } from 'react';
 import { FaSearch, FaCartPlus, FaHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link} from 'react-router-dom'
-import {  addToWatchList } from '../redux/cartSlice';
+import { Link, useParams } from 'react-router-dom'
+import { useCustomHook } from '../customhooks/useCustomHook';
+import { addToWatchList } from '../redux/cartSlice';
+import { closeModal, openModal } from '../redux/modalSlice';
 
 import Modal from './Modal';
 
-const Product = ({ item, category }) => {
-  const [modal, setModal] = useState(false)
+const Product = ({ item }) => {
+  const category = useCustomHook().categoryRoute
+const {isModal} = useSelector(state => state.modal)
 
   const dispatch = useDispatch()
   const watchlist = useSelector(state => state.cart.watchlist)
+  
   const handleLove = (item) => {
-    setModal(true)
+    dispatch(openModal())
     dispatch(addToWatchList({ ...watchlist, item }))
 
     setTimeout(() => {
-      setModal(false)
+    dispatch(closeModal())
     }, 2000)
   }
-
   return (
     <>
-      <div className=" group relative  shadow-[0_4px_7px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden  w-full max-w-[400px] aspect-auto h-[300px] mx-auto shadow-cyan-500/50   ">
+      <div className=" group relative  shadow-[0_4px_7px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden  w-full max-w-[400px] aspect-auto h-[260px] mx-auto shadow-cyan-500/50   ">
 
         <img
           src={item.img}
@@ -42,7 +45,7 @@ const Product = ({ item, category }) => {
           </div>
         </div>
       </div>
-      {modal && <Modal className='fixed'>
+      {isModal && <Modal className='fixed'>
         <h2>Added to watchlist</h2>
       </Modal>}
     </>

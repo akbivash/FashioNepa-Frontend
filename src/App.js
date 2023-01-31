@@ -12,21 +12,16 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import {
-  Router,
   Routes,
   Route,
-  Navigate,
-  Link,
-  useNavigate,
+ 
   useLocation,
 } from "react-router-dom";
-import CategoryItem from "./components/CategoryItem";
 import { useEffect } from "react";
 import ProductList from "./components/ProductList";
 import Pay from "./pages/stripe/Pay";
 import ProductDisplay from "./pages/stripe/Pay";
 import Success from "./pages/Success";
-import { useSelector } from "react-redux";
 import Notification from "./components/notifications/Notification";
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
@@ -34,21 +29,21 @@ import Account from "./pages/Account";
 import Logout from "./pages/Logout";
 import Signout from "./pages/Signout";
 import Watchlist from "./pages/Watchlist";
+import { useSelector } from "react-redux";
 const App = () => {
 
  
  const {pathname} = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // let Navigate = useNavigate();
-  const user = useSelector((state) => state.user.currentUser);
-  // useEffect(() => {
-  // user ? Navigate('/') : <Login/>
-  // }, [user])
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  useEffect(() => {
+
+
   
+  useEffect(() => {
+ 
     document.addEventListener("click", (e) => {
       if (
         e.currentTarget != "undefined" &&

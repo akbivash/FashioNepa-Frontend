@@ -22,7 +22,7 @@ const Home = () => {
           {categories.map((cat) => {
             return (
               <Link
-                to={`products/${cat.toLowerCase().replace(/\s+/g, "")}`}
+                to={`${cat.toLowerCase().replace(/\s+/g, "")}`}
                 key={cat}
                 className="cursor-pointer h-fit"
               >
@@ -34,11 +34,13 @@ const Home = () => {
 
         <Slider />
 
-        <Dropdown  />
+        <Dropdown />
       </div>
 
       <CategoryItem />
-      <ProductList />
+    <div className="relative">
+    <ProductList />
+    </div>
     </div>
   );
 };

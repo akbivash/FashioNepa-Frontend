@@ -13,7 +13,7 @@ import { icons } from "../assets/data";
 
 const Footer = () => {
   return (
-    <div className="max-w-[1400px] bg-tahiti-dark text-white mx-auto   grid p-4 gap-10 justify-center sm:flex flex-wrap sm:justify-around">
+    <div className="max-w-[1400px] bg-tahiti-dark text-white mx-auto   grid p-4 py-10 gap-10 justify-center sm:flex flex-wrap sm:justify-around">
       <div className=" grid gap-10 w-full max-w-[350px] ">
         <h2 className="text-2xl font-[Ubuntu] tracking-wide font-black ">
           {" "}
@@ -45,10 +45,10 @@ const Footer = () => {
            <Link to='/'>
               Home
             </Link>
-           <Link to="/products/men'sfashion">
+           <Link to="/men'sfashion">
               Men Fashion
             </Link>
-           <Link to="women'sfashion">
+           <Link to="/women'sfashion">
               Women Fashion
             </Link>
            <Link to='/products'>

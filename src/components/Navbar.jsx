@@ -32,14 +32,14 @@ const Navbar = ({ handleMenu, isSidebarOpen }) => {
 
   return (
     <>
-      <div className="flex  w-full items-center gap-10 justify-between max-w-[1400px]   ">
+      <div className="flex  w-full gap-10 items-center sm:px-5 justify-between max-w-[1400px]  px-10 ">
         {/* top left  */}
         <div className="logo  font-bold lg:text-[1.4rem]  tracking-[2px] text-transparent  bg-clip-text bg-gradient-to-r from-yellow-default to-green-dark">
           <Link to="/">FashioNepa</Link>
         </div>
 
         {/* top right  */}
-        <div className="flex grow-[2]   justify-end items-center gap-5 lg:gap-10">
+        <div className="flex grow-[2]   justify-end items-center gap-8">
           <div className="search_box overflow-hidden rounded-md max-w-xl  flex justify-end items-center w-full  relative  ">
             <input
               type="text"

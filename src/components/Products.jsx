@@ -1,37 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Product from "./Product";
-import { publicRequest } from "../requestMethods";
 import Pagination from "./Pagination";
-import { useParams } from "react-router-dom";
+import Product from '../components/Product'
+import { useFetch } from "../customhooks/useFetch";
+import Loading from './Loading'
+
 const Products = ({  filters, sort }) => {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-const[isError, setIsError] = useState(false)
-
 const[page, setPage] = useState(1)
-const[limit, setLimit] = useState(4)
-const category = useParams().category
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get(
-          category
-            ? `api/v1/products/?category=${category}&page=${page}&limit=${limit}`
-            : `api/v1/products/?page=${page}&limit=${limit}`
-        );
-       
-        setProducts(res.data);
-      } catch (err) {
-        console.log(err);
-        setIsError(true)
-      }
-    };
-    getProduct();
-   
-  }, [ page, category]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+const{products,isError,isLoading} = useFetch(page)
 
   useEffect(() => {
-   setFilteredProducts(
+  filteredProducts && setFilteredProducts(
       products.filter((product) => {
         if (
           product.color.includes(filters.color) ||
@@ -39,50 +18,52 @@ const category = useParams().category
         ) {
           return product;
         } else if (!filters.color && !filters.size) {
-          return product;
+          return 
         } 
       })
     ); 
-  }, [products, filters]);
+    
+  }, [ filters]);
 
   useEffect(() => {
-  if ( sort === "asc") {
-    setFilteredProducts(prev => [...prev].sort((a, b) => {
+  if(products)
+   if ( sort === "asc") {
+    setFilteredProducts([...products].sort((a, b) => {
      return a.price - b.price;
  }
 ) )
    
  } else if ( sort === "desc") {
-   setFilteredProducts(prev => [...prev].sort((a, b) => {
+   setFilteredProducts( [...products].sort((a, b) => {
        return b.price - a.price;
      })
    );
  }else if( sort === "newest"){
-   setFilteredProducts(prev => [...prev].sort((a,b) => {
+   setFilteredProducts( [...products].sort((a,b) => {
      return a.createAt - b.createdAt
    }))
  }
 
+  }, [ sort]);
 
-  }, [products, sort]);
-
- 
   return (
     <>
-    <div className="grid grid-cols-2  sm:grid-cols-[repeat(auto-fit,_minmax(270px,_1fr))] justify-center place-items-center relative h-full mt-4 gap-2  ">
+  
+   { products && <div className="grid  grid-cols-2 md:grid-cols-4 justify-center place-items-center relative h-full mt-4 gap-2  ">
       {filteredProducts.length != 0
         ? filteredProducts.map((item, index) => {
-            return <Product item={item} key={item._id} category={category}/>;
+            return <Product item={item} key={item._id} />;
           })
-        : products.map((item, index) => {
-      
-            return <Product item={item} key={item._id} category={category}  />;
+        :  products.map((item, index) => {
+            return <Product item={item} key={item._id}   />;
           })}
 
-    </div>
-   
-    {!isError && <Pagination page={page} setPage={setPage} category={category}/>}
-    <span className="flex justify-center">  { isError ? 'Server is not connected, try again': products.length === 0  ? 'No Items Found': '' }</span>
+    </div>} 
+    {isLoading && !isError&& <Loading/>}
+     {!isError && !isLoading && <Pagination page={page} setPage={setPage} />}
+     {isError && <div className="text-center py-2">
+   Failed to fetch, try Again 😐 
+    </div>}   
 </>
   );
 };

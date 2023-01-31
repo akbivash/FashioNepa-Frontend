@@ -1,6 +1,5 @@
 import { createSlice,current } from "@reduxjs/toolkit";
-import { enableMapSet } from 'immer';
-// enableMapSet()
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -11,9 +10,18 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      state.quantity += 1;
-      state.products.push(action.payload);
+      const item = action.payload;
+     
+      state.quantity += 1 
+      state.products.push(item)
       state.totalPrice += action.payload.price * action.payload.quantity;
+
+    //  if the add button is not disabled then apply this logic 
+//       if (!state.products.find(elem => elem._id === item._id)) {
+//         state.quantity += 1;
+//         state.products.push(item);
+//       state.totalPrice += action.payload.price * action.payload.quantity;
+// }
     },
     removeProduct: (state, action) => {
       state.quantity -= 1
@@ -51,9 +59,9 @@ const cartSlice = createSlice({
 addToWatchList:(state, action) => {
 
   const item = action.payload;
-            // if (!state.watchlist.find(elem => elem.item._id === item.item._id)) {
+            if (!state.watchlist.find(elem => elem.item._id === item.item._id)) {
                 state.watchlist.push(item);
-// }
+}
 },
 removeFromWatchlist:(state, action) => {
   state.watchlist.splice(
