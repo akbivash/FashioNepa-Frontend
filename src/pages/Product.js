@@ -5,7 +5,7 @@ import { addProduct } from "../redux/cartSlice";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import { useFetch } from "../customhooks/useFetch";
-import { closeModal, openModal } from "../redux/modalSlice";
+import { closeModal, openModal, setText } from "../redux/modalSlice";
 
 const Product = () => {
   const dispatch = useDispatch()
@@ -13,6 +13,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [isInCart, setIsInCart] = useState(false)
   const { product, isLoading, isError } = useFetch()
+  const{currentUser} = useSelector(state => state.user)
   const cartProducts = useSelector(state => state.cart.products)
 
   useEffect(() => {
@@ -35,11 +36,17 @@ const Product = () => {
   }
 
   function addToCart() {
-    dispatch(openModal())
+if(currentUser !== null){
+  dispatch(openModal())
     dispatch(addProduct({ ...product, quantity, size: product.size, color: product.color }))
     setIsInCart(true)
     setTimeout(() => { dispatch(closeModal()) }, 1000)
+  }else{
+   dispatch(openModal())
+  
   }
+    
+}
 
 
   return (
@@ -56,7 +63,7 @@ const Product = () => {
         <div className="flex flex-col items-center gap-4">
           <h2 className="text-3xl ">{product.title}</h2>
           <p className="text-center">{product.desc}</p>
-
+{/* <span>{product._id}</span> */}
           <span className="text-2xl">Rs {product.price}</span>
 
           <div className="flex items-center gap-3">
@@ -94,16 +101,22 @@ const Product = () => {
               </span>
             </div>
             {
-              isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white ">Open Cart</Link> : <button
-                className="bg-green-dark p-3 rounded-sm text-white "
+              isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white w-[150px] text-center ">Open Cart</Link> : <button
+                className="bg-green-dark p-3 w-[150px] text-center rounded-sm text-white "
                 onClick={addToCart}
-                disabled={isError && product.length === 0}
+                disabled={isError || isLoading || product.length === 0}
               >
                 ADD TO CART
               </button>
             }
-            {isModal && <Modal className='fixed'>
+            {isModal && currentUser !== null && <Modal className='fixed'>
               <h2>Added to cart</h2>
+            </Modal>}
+            {isModal && currentUser === null && <Modal className='fixed'>
+            <div className="grid gap-2">
+             <span className="flex items-center"> Please sign up to add item <img src="https://em-content.zobj.net/source/skype/289/smiling-face-with-smiling-eyes_1f60a.png" alt="" className="h-10 w-10" /></span>
+             <span className="flex gap-3 items-center"><Link to='/register' className="bg-green-default py-2 text-[#000] px-7">Ok</Link> <Link to='/products' className="bg-yellow-default text-[#000] px-7 py-2">Cancel</Link></span>
+            </div>
             </Modal>}
           </div>
         </div>

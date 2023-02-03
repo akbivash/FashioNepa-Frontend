@@ -27,13 +27,13 @@ const cartSlice = createSlice({
       state.quantity -= 1
       state.totalPrice -= action.payload.price * action.payload.quantity;
       state.products.splice(
-        state.products.findIndex(item => item._id === action.payload), 1
+        state.products.findIndex(item => item._id === action.payload._id), 1
       )
-
+console.log(state.products)
+console.log(state.products.findIndex(item => item._id === action.payload._id))
     },
+    
     increaseQuantity: (state, action) => {
-     
-
       state.products.map(product => {
         if (product._id === action.payload._id) {
           product.quantity += 1

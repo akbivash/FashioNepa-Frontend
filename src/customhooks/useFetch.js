@@ -23,7 +23,8 @@ export const useFetch = (page) => {
 
                 const res = await publicRequest.get(
                     category
-                        ? `api/v1/products/?category=${category}&page=${page}&limit=${limit}`
+                        ? `api/v1/products/?category=${category}`
+                        : location.pathname === '/products' ?  `api/v1/products/?page=1&limit=10`
                         : `api/v1/products/?page=${page}&limit=${limit}`
                 );
                 setProducts(res.data)

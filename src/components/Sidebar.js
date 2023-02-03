@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { sidebarLinks } from "../assets/data";
 
 const Sidebar = () => {
-
+const{currentUser} = useSelector(state => state.user)
 
   return (
     <>
@@ -19,7 +20,10 @@ const Sidebar = () => {
               {l.name}
             </Link>
           );
+
         })}
+        {currentUser && <Link to='/logout'   className="w-full bg-white  text-center  border-b-[1px] border-[#c4c3bf]">Log out</Link>}
+        
       </ul>
     </>
   );

@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
     name:'modal',
     initialState:{
         isModal:false,
+       
     
     },
     reducers:{

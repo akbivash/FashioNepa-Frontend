@@ -1,65 +1,145 @@
 import React from 'react'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
-import { register } from '../redux/apiCalls'
-import { registerStart } from '../redux/userSlice'
-import { handleFormError } from './handleFormError'
-
-
-
+import { registerFailure, registerStart, registerSuccess } from '../redux/userSlice'
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { publicRequest } from '../requestMethods'
+import Modal from '../components/Modal'
+import { openModal, closeModal } from '../redux/modalSlice'
+import{FaTimes}from 'react-icons/fa'
+import Loading from '../components/Loading'
 const Register = () => {
-  const [user, setUser] = useState({
-    username:'',
-    email:'',
-    password:'',
-    confirmPassword:''
-  })
-  const[error, setError] = useState({
-    usernameErr:'',
-    emailErr:'',
-    passwordErr:'',
-    cPasswordErr:''
-  })
+
 const dispatch = useDispatch()
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .required('Username is required')
+      .min(6, 'Username must be at least 6 characters')
+      .max(20, 'Username must not exceed 20 characters'),
+    email: Yup.string()
+      .required('Email is required')
+      .email('Email is invalid'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters')
+      .max(40, 'Password must not exceed 40 characters'),
+    confirmPassword: Yup.string()
+      .required('Confirm Password is required')
+      .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
+    acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required')
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-   
+const{isFetching, currentUser,error} = useSelector(state => state.user)
+const{isModal} = useSelector(state => state.modal)
+console.log(currentUser)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  });
+
+
+
+  function onSubmit(data){
+    const {email, password, username} = data
+  const reg =  async () => {
+  dispatch(registerStart())
+  try {
+    const res =    await publicRequest.post('api/v1/auth/register', {email, password, username})
+          dispatch(registerSuccess(res))
+      } catch (err) {
+          dispatch(registerFailure(err))
+          dispatch(openModal())
+      }
+  }
+   reg()
   }
 
-  const handleChange = (e) => {
-    setUser({...user, [e.target.name]: e.target.value})
-  handleFormError(user, error, setError)
-  }
+  
   return (
- <div className='grid place-items-center mt-10 px-2'>
+ <div className='grid  place-items-center mt-10 px-2'>
   <h2 className='text-2xl font-[400] uppercase mb-4'>Create your account</h2>
- <form action="" className='form w-full max-w-xl grid gap-3' onSubmit={handleSubmit}>
-  <div>
-    <label htmlFor="">username</label>
-    <input type="text" name='username' value={user.username} onChange={handleChange}/>
-    <span className='text-[red]'>{error.usernameErr}</span>
-  </div>
-  <div>
-    <label htmlFor="">email</label>
-    <input type="text" name='email' value={user.email} onChange={handleChange} />
-    <span className='text-[red]'>{error.emailErr}</span>
+ <form action="" className='form w-full max-w-xl grid gap-3' onSubmit={handleSubmit(onSubmit)}>
 
-  </div>
-  <div>
-    <label htmlFor="">password</label>
-    <input type="password" name='password' value={user.password} onChange={handleChange}/>
-    <span className='text-[red]'>{error.passwordErr}</span>
 
-  </div>
-  <div>
-    <label htmlFor="">confirmPassword</label>
-    <input type="password" name='confirmPassword' value={user.confirmPassword} onChange={handleChange} />
-   <span className='text-[red]'> {error.cPasswordErr}</span>
-  </div>
-  <button className='bg-green-dark px-4 py-1 w-fit mx-auto rounded-sm text-white' type='submit'>Sign Up</button>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            name="username"
+            type="text"
+            {...register('username')}
+          />
+          <div className="invalid-feedback">{errors.username?.message}</div>
+        </div>
+
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            name="email"
+            type="text"
+            {...register('email')}
+          />
+          <div className="invalid-feedback">{errors.email?.message}</div>
+        </div>
+
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            name="password"
+            type="password"
+            {...register('password')}
+          />
+          <div className="invalid-feedback">{errors.password?.message}</div>
+        </div>
+
+
+        <div className="form-group">
+          <label>Confirm Password</label>
+          <input
+            name="confirmPassword"
+            type="password"
+            {...register('confirmPassword')}
+          />
+          <div className="invalid-feedback">
+            {errors.confirmPassword?.message}
+          </div>
+        </div>
+       
+
+        <div className="form-group  form-check">
+          <input
+            name="acceptTerms"
+            type="checkbox"
+            {...register('acceptTerms')}
+            
+          />
+          <label htmlFor="acceptTerms" className="form-check-label text-center">
+            I have read and agree to the Terms
+          </label>
+          <div className="invalid-feedback">{errors.acceptTerms?.message}</div>
+        </div>
+
+  <button className='bg-green-dark px-4 py-1 w-fit mx-auto rounded-sm disabled:opacity-50 text-white' type='submit' disabled={isFetching}>Sign Up</button>
+  <button
+            type="button"
+            onClick={reset}
+            className="btn btn-warning float-right"
+          >
+            Reset
+          </button>
+
+        { isModal && <Modal >
+<p>Username or email already exists.</p>
+<button className='text-yellow-default' onClick={() => dispatch(closeModal())}><FaTimes/></button>
+          </Modal>}
+       
  </form>
+
   <div className='mt-4'>
     <span>Already have an account ? </span>
     <Link to='/login' className='font-bold  text-green-dark'>Login</Link>

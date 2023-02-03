@@ -1,11 +1,14 @@
 import React from 'react'
+import { useFetch } from '../customhooks/useFetch'
 
 const Loading = () => {
+
   return (
-    <div className="rounded-full animate-spin w-10 h-10  z-50 absolute left-[50%]  mx-auto  ">
-    <div className=" text-3xl h-full bg-white border-r-4 border-green-dark rounded-full ">
- ...
+    <div className=" bg-white py-2 z-50 absolute left-[50%] translate-x-[-50%]  w-full mx-auto  ">
+    <div className="   w-5 h-5  mx-auto border-l-[#ccc] animate-spin   border-2 border-green-dark rounded-full ">
+    
       </div>
+     
  </div>
   )
 }

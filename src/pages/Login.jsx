@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux'
 import { login } from "../redux/apiCalls";
 
 const Login = () => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+const{currentUser, isFetching, error} = useSelector(state => state.user)
+const navigate = useNavigate()
+useEffect(() => {
+if(currentUser !== null){
+  navigate('/cart')
+}
+},[currentUser])
 
   function handleLogin(e){
 e.preventDefault()

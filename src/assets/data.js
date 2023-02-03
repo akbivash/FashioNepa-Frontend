@@ -14,11 +14,7 @@ export const sidebarLinks = [
     {
       name: "watchlist",
       link: "/watchlist",
-    },
-    {
-      name: "logout",
-      link: "/logout",
-    },
+    }
   ];
 
   export const sliderItems = [
@@ -27,7 +23,7 @@ export const sidebarLinks = [
       id: "121",
       title: "Pure cotton Hoodie",
       info: "Winter sells",
-      img:'https://www.shutterstock.com/image-vector/summer-sale-background-layout-banners-260nw-678851590.jpg'
+      img:'https://img.freepik.com/free-vector/season-sale_62951-24.jpg?w=2000',
     },
     {
       id: "122",

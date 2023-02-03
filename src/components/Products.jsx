@@ -3,12 +3,13 @@ import Pagination from "./Pagination";
 import Product from '../components/Product'
 import { useFetch } from "../customhooks/useFetch";
 import Loading from './Loading'
+import { useLocation } from "react-router-dom";
 
 const Products = ({  filters, sort }) => {
 const[page, setPage] = useState(1)
   const [filteredProducts, setFilteredProducts] = useState([]);
 const{products,isError,isLoading} = useFetch(page)
-
+const location = useLocation()
   useEffect(() => {
   filteredProducts && setFilteredProducts(
       products.filter((product) => {
@@ -49,7 +50,7 @@ const{products,isError,isLoading} = useFetch(page)
   return (
     <>
   
-   { products && <div className="grid  grid-cols-2 md:grid-cols-4 justify-center place-items-center relative h-full mt-4 gap-2  ">
+   { products && <div className={location.pathname == '/' ? "grid grid-cols-2 md:grid-cols-4 justify-center place-items-center relative h-full mt-4 gap-2  ":' grid grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))]  md:grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] gap-2'} >
       {filteredProducts.length != 0
         ? filteredProducts.map((item, index) => {
             return <Product item={item} key={item._id} />;
@@ -60,7 +61,8 @@ const{products,isError,isLoading} = useFetch(page)
 
     </div>} 
     {isLoading && !isError&& <Loading/>}
-     {!isError && !isLoading && <Pagination page={page} setPage={setPage} />}
+   
+     {!isError && !isLoading &&  location.pathname === '/' && <Pagination page={page} setPage={setPage} />}
      {isError && <div className="text-center py-2">
    Failed to fetch, try Again 😐 
     </div>}   
