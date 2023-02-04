@@ -14,7 +14,6 @@ const categories = [
 ];
 const Home = () => {
 
-
   return (
     <div className="home relative overflow-hidden">
       <div className="flex">
@@ -31,16 +30,13 @@ const Home = () => {
             );
           })}
         </div>
-
         <Slider />
-
         <Dropdown />
       </div>
-
       <CategoryItem />
-    <div className="relative">
-    <ProductList />
-    </div>
+      <div className="relative">
+        <ProductList />
+      </div>
     </div>
   );
 };

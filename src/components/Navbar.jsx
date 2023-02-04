@@ -32,9 +32,9 @@ const Navbar = ({ handleMenu, isSidebarOpen }) => {
 
   return (
     <>
-      <div className="flex  w-full gap-10 items-center sm:px-5 justify-between max-w-[1400px]  px-10 ">
+      <div className="flex h-[60px] w-full gap-2 items-center sm:px-5 justify-between max-w-[1400px]  px-10 ">
         {/* top left  */}
-        <div className="logo  font-bold lg:text-[1.4rem]  tracking-[2px] text-transparent  bg-clip-text bg-gradient-to-r from-yellow-default to-green-dark">
+        <div className="logo text-[1rem]  font-bold lg:text-[1.4rem]  tracking-[2px] text-transparent  bg-clip-text bg-gradient-to-r from-yellow-default to-green-dark">
           <Link to="/">FashioNepa</Link>
         </div>
 
@@ -76,9 +76,6 @@ const Navbar = ({ handleMenu, isSidebarOpen }) => {
             <Link to="/login">Login</Link>
             <Link to="/account">Account</Link>
             <Link to="/help">Help</Link>
-            {/* <Link to='/' className="grid place-items-center" ><FaHome/></Link> */}
-            
-         
 
           </div>
         </div>

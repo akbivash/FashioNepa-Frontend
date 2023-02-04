@@ -4,26 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux'
 import { login } from "../redux/apiCalls";
 
-const Login = () => {
+const Login = ({state}) => {
   const dispatch = useDispatch()
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 const{currentUser, isFetching, error} = useSelector(state => state.user)
 const navigate = useNavigate()
-useEffect(() => {
-if(currentUser !== null){
-  navigate('/cart')
-}
-},[currentUser])
 
   function handleLogin(e){
 e.preventDefault()
 login(dispatch, {username, password})
-
+setTimeout(() => {
+  navigate('/')
+},1500)
   }
   return (
     <div className=" flex justify-center  items-center p-3 ">
-      <form
+    {currentUser && <span className="py-7">You are  logged in</span>}
+    {!currentUser &&   <form
         action=""
         className="flex flex-col  bg-white rounded-md w-full  drop-shadow-lg shadow-black max-w-[400px] gap-3 p-8 "
       >
@@ -53,7 +51,7 @@ login(dispatch, {username, password})
         <Link to="/register" className="text-green-dark">
           Create an account
         </Link>
-      </form>
+      </form>}
     </div>
   );
 };

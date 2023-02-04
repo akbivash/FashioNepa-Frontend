@@ -33,7 +33,7 @@ dispatch(removeFromWatchlist(id))
                         </div>
                     </div>
                 </div>
-            }) : <span >No items, Add to the watchlist first</span>}
+            }) : <span  className='py-20'>No items, Add to the watchlist first</span>}
         </div>
     )
 }

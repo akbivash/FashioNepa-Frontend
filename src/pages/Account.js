@@ -1,28 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { closeModal, openModal } from "../redux/modalSlice";
 import Modal from "../components/Modal";
 const Account = () => {
-  const{currentUser} = useSelector(state => state.user)
+  const{currentUser, error} = useSelector(state => state.user)
   const{isModal} = useSelector(state => state.modal)
   const dispatch = useDispatch()
-  const signOut = () => {
+ 
+const signOut = () => {
 
-  };
+}
 
   return (
-    <div>
-      <div className="grid gap-2 place-items-center p-4">
-        <img
-          src={require("../assets/images/biv.jpg")}
-          className=" w-20 h-20  rounded-full object-cover"
-          alt="biv"
-        />
-        <span>Username : {currentUser.user.username}</span>
-        <span>Email: {currentUser.user.email}</span>
+    <div className="relative">
+  {currentUser === null  && <div className="text-center grid gap-2 py-10">
+ 
+ <span>You have not created account yet</span>
+ <Link to='/register' className="bg-green-dark px-5 w-fit mx-auto text-white">Sign Up</Link>
+</div>}
+      {currentUser !== null  && <div className="grid gap-2 place-items-center p-4">
+       <span className="font-bold text-5xl border-2 border-green-default rounded-full p-4">{currentUser.user.username.slice(0,1).toUpperCase()}</span>
+        <span>Hello {currentUser.user.username}</span>
+        <div>Welcome to  <span className="logo  pl-2  font-bold text-[1.4rem]  tracking-[2px] text-transparent  bg-clip-text bg-gradient-to-r from-yellow-default to-green-dark">
+         FashioNepa
+        </span></div>
+        <Link to='/products' className="bg-green-dark px-4 text-white py-2">Shop Now</Link>
+        {/* <span>Email: {currentUser.user.email}</span> */}
         
-        <Link
+        {/* <Link
           className="bg-yellow-dark text-white py-1 px-4 rounded-md "
           onClick={() => dispatch(openModal())}
         >
@@ -33,8 +39,8 @@ const Account = () => {
 <span >Do you really want to leave us 🙁</span>
 <span className="flex gap-4"><button className="bg-yellow-dark px-3" onClick={signOut}>Yes</button><button className="bg-white text-black-default px-3" onClick={() => dispatch(closeModal())}>No</button></span>
         </Modal>
-   }
-      </div>
+   } */}
+      </div>}
     </div>
   );
 };

@@ -10,19 +10,9 @@ export const login = async (dispatch, user) => {
 
         dispatch(loginSuccess(response))
     } catch (err) {
-        dispatch(loginFailure())
+        dispatch(loginFailure(err))
     }
 }
 
-export const register = async (dispatch, user) => {
-    dispatch(registerStart())
 
-    try {
-  const res =      await publicRequest.post('api/v1/auth/register', user)
- 
-        dispatch(registerSuccess(res))
-    } catch (err) {
-        dispatch(registerFailure(err))
-    }
-}
 

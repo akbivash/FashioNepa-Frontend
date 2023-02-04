@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { registerFailure, registerStart, registerSuccess } from '../redux/userSlice'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,7 +9,6 @@ import { publicRequest } from '../requestMethods'
 import Modal from '../components/Modal'
 import { openModal, closeModal } from '../redux/modalSlice'
 import{FaTimes}from 'react-icons/fa'
-import Loading from '../components/Loading'
 const Register = () => {
 
 const dispatch = useDispatch()
@@ -33,7 +32,7 @@ const dispatch = useDispatch()
 
 const{isFetching, currentUser,error} = useSelector(state => state.user)
 const{isModal} = useSelector(state => state.modal)
-console.log(currentUser)
+const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -50,8 +49,10 @@ console.log(currentUser)
   const reg =  async () => {
   dispatch(registerStart())
   try {
-    const res =    await publicRequest.post('api/v1/auth/register', {email, password, username})
-          dispatch(registerSuccess(res))
+    const response =    await publicRequest.post('api/v1/auth/register', {email, password, username})
+          dispatch(registerSuccess(response))
+          navigate('/account')
+          
       } catch (err) {
           dispatch(registerFailure(err))
           dispatch(openModal())
@@ -62,9 +63,11 @@ console.log(currentUser)
 
   
   return (
- <div className='grid  place-items-center mt-10 px-2'>
-  <h2 className='text-2xl font-[400] uppercase mb-4'>Create your account</h2>
- <form action="" className='form w-full max-w-xl grid gap-3' onSubmit={handleSubmit(onSubmit)}>
+ <div className='grid  place-items-center mt-10 px-10'>
+ {currentUser && <span>You are already registered</span>}
+
+ {!currentUser && <> <h2 className='text-2xl font-[400] uppercase mb-4'>Create your account</h2>
+ <form action="" className='form w-full max-w-lg grid gap-3' onSubmit={handleSubmit(onSubmit)}>
 
 
         <div className="form-group">
@@ -143,7 +146,7 @@ console.log(currentUser)
   <div className='mt-4'>
     <span>Already have an account ? </span>
     <Link to='/login' className='font-bold  text-green-dark'>Login</Link>
-  </div>
+  </div> </>}
  </div>
   )
 }

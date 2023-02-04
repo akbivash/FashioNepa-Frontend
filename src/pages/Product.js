@@ -63,7 +63,7 @@ if(currentUser !== null){
         <div className="flex flex-col items-center gap-4">
           <h2 className="text-3xl ">{product.title}</h2>
           <p className="text-center">{product.desc}</p>
-{/* <span>{product._id}</span> */}
+
           <span className="text-2xl">Rs {product.price}</span>
 
           <div className="flex items-center gap-3">
@@ -114,7 +114,7 @@ if(currentUser !== null){
             </Modal>}
             {isModal && currentUser === null && <Modal className='fixed'>
             <div className="grid gap-2">
-             <span className="flex items-center"> Please sign up to add item <img src="https://em-content.zobj.net/source/skype/289/smiling-face-with-smiling-eyes_1f60a.png" alt="" className="h-10 w-10" /></span>
+             <span className="flex gap-2 items-center"> Please sign up to add item <img src="https://em-content.zobj.net/source/skype/289/smiling-face-with-smiling-eyes_1f60a.png" alt="" className="h-10 w-10" /></span>
              <span className="flex gap-3 items-center"><Link to='/register' className="bg-green-default py-2 text-[#000] px-7">Ok</Link> <Link to='/products' className="bg-yellow-default text-[#000] px-7 py-2">Cancel</Link></span>
             </div>
             </Modal>}

@@ -13,11 +13,19 @@ const Cart = () => {
   const{isModal} = useSelector(state => state.modal)
   const watchlist = cart.watchlist
   const{currentUser} = useSelector(state => state.user)
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
 useEffect(() => {
-currentUser === null && navigate('/register')
+
+  let timeout = setTimeout(() => {
+    if(currentUser === null ) 
+    dispatch(openModal())
+  },[1000])
+ 
+
+ return () => {
+  clearTimeout(timeout)
+ }
 },[])
 
 const increment = (product) => {
@@ -71,8 +79,8 @@ const resetAll = () => {
           </div>
       
   
-         <div className='flex gap-10  md:grid place-items-center md:gap-2 '>
-   <div className='flex gap-4  items-center'>
+         <div className='flex gap-7  md:grid place-items-center md:gap-2 '>
+   <div className='flex gap-4 items-center'>
      <span className='bg-yellow-dark cursor-pointer w-5 h-1 ' onClick={() => decrement(product)}></span>
      <span className='text-2xl'>{product.quantity}</span>
      <span  className='bg-green-dark cursor-pointer w-5 h-1 relative' onClick={() => increment( product)}>
@@ -85,7 +93,7 @@ const resetAll = () => {
    </div>
   
     })}
-    {cart.products.length === 0 && <div className='text-center'>You have no items , Please add first.</div>}
+    {cart.products.length === 0 && <div className='text-center py-10'>You have no items , Please add first.</div>}
    </div>
   
   {/* order summary  */}
@@ -108,7 +116,7 @@ const resetAll = () => {
   
   
   {cart.products.length != 0 && <> <button className='bg-yellow-dark w-fit mx-auto p-2 text-white rounded-sm' onClick={() => dispatch(openModal())}>Reset</button>
-  {isModal && <Modal >
+  {isModal && currentUser && <Modal >
   <span>  <h2>Are you sure ?</h2></span>
   <div className='flex p-2 gap-3'>
     <button className='bg-yellow-dark p-1 px-5 rounded-sm' onClick={resetAll}>yes</button>
@@ -117,6 +125,12 @@ const resetAll = () => {
   </Modal>}
    </>}
   
+   {isModal && currentUser === null && <Modal className='fixed'>
+            <div className="grid gap-2">
+             <span className="flex gap-3 items-center"> Please sign up to add item <img src="https://em-content.zobj.net/source/skype/289/smiling-face-with-smiling-eyes_1f60a.png" alt="" className="h-10 w-10" /></span>
+             <span className="flex gap-3 items-center"><Link to='/register' className="bg-green-default py-2 text-[#000] px-7">Ok</Link> <Link to='/products' className="bg-yellow-default text-[#000] px-7 py-2">Cancel</Link></span>
+            </div>
+            </Modal>}
      </div>
 
   )
