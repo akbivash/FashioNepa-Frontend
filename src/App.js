@@ -30,6 +30,7 @@ import Logout from "./pages/Logout";
 import Watchlist from "./pages/Watchlist";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "./redux/modalSlice";
+import { setErrorMsg } from "./redux/userSlice";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -37,10 +38,12 @@ const App = () => {
   const{currentUser} = useSelector(state => state.user)
   const dispatch = useDispatch()
   const location = useLocation()
+
   useEffect(() => {
     window.scrollTo(0, 0);
     return () => {
       dispatch(closeModal())
+      dispatch(setErrorMsg(''))
     }
   }, [pathname]);
 
@@ -63,7 +66,7 @@ const App = () => {
     <>
       <div className="app relative">
     {!currentUser && <Notification/>}
-        <div className="navbar z-40  bg-white flex px-2 sm:px-4 md:px-8 fixed top-0 shadow-sm justify-center  shadow-[#ccc]    w-full ">
+        <div className="navbar z-40  bg-white flex  sm:px-2 fixed top-0 shadow-sm justify-center  shadow-[#ccc]    w-full ">
        
           <Navbar handleMenu={handleMenu} isSidebarOpen={isSidebarOpen} />
           <div className={`${isSidebarOpen ? "fixed right-0 top-[60px] bg-white shadow-md  z-[100] w-full max-w-md  duration-300 opacity-100"
@@ -81,7 +84,7 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" exact element={<Login state={location.pathname}/>} />
             <Route path="/logout" element={<Logout />} />
-         {  <Route path="/register" element={<Register />} />}
+           <Route path="/register" element={<Register />} />
             <Route path="/checkout" element={<Pay />} />
             <Route path="/checkout/success" element={<Success />} />
             <Route path="/watchlist" element={<Watchlist />} />

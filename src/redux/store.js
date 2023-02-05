@@ -16,7 +16,7 @@ import {
 const rootReducers = combineReducers({
     user:userReducer,
     cart:cartReducer,
-    modal:modalReducer
+    modal:modalReducer,
 })
 const persistConfig = {
     key: 'root',

@@ -15,26 +15,18 @@ const Slider = () => {
     }%))`;
  
 sliderContainerRef.current.style.transition = '1s'
-let intervelID = setInterval(() => {
+let intervelID =  setInterval(() => {
 setIndex(prev => prev + 1)
 if(index === sliderItems.length - 1){
   setIndex(0)
 }
-
 },4000)
-
-    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
       clearInterval(intervelID)
     };
   }, [index]);
 
-  const handleResize = () => {
-    sliderContainerRef.current.style.transform = `translateX(calc(-${
-      sliderContainerRef.current.clientWidth * index
-    }px))`;
-  };
+ 
 
   const handleLeft = () => {
   if(index !== 0){

@@ -1,4 +1,4 @@
-import { loginStart, loginSuccess, loginFailure, registerStart, registerFailure, registerSuccess, logoutSuccess, logoutStart, logoutFailure } from "./userSlice";
+import { loginStart, loginSuccess, loginFailure, registerStart, registerFailure, registerSuccess, logoutSuccess, logoutStart, logoutFailure, setErrorMsg } from "./userSlice";
 import { publicRequest } from "../requestMethods";
 
 
@@ -10,7 +10,9 @@ export const login = async (dispatch, user) => {
 
         dispatch(loginSuccess(response))
     } catch (err) {
-        dispatch(loginFailure(err))
+        dispatch(loginFailure())
+        dispatch(setErrorMsg(err.response.data.msg))
+    
     }
 }
 

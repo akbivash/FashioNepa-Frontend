@@ -1,60 +1,41 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import "../index.css";
 import { useSelector } from "react-redux";
-import { BiLeftArrow, BiSearch } from "react-icons/bi";
 import { FaHome, FaTimes } from "react-icons/fa";
+
 import {
   AiOutlineMenu,
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import Search from "./Search";
+import { BiSearch } from "react-icons/bi";
+
 const Navbar = ({ handleMenu, isSidebarOpen }) => {
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const quantity = useSelector(state => state.cart.quantity);
-  const [isSearchboxOpen, setIsSearchboxOpen] = useState(true);
+  const watchlist = useSelector(state => state.cart.watchlist);
+  const{currentUser} = useSelector(state => state.user)
 
-  useEffect(() => {
-    window.addEventListener("resize", closeOpenedSearchBox);
 
-    return () => {
-      window.removeEventListener("resize", closeOpenedSearchBox);
-    };
-  }, []);
-  const closeOpenedSearchBox = () => {
-    if (window.innerWidth > 768) {
-      setIsSearchboxOpen(true);
-    }
-  };
-  const handleSearchBox = () => {
-    setIsSearchboxOpen(() => !isSearchboxOpen);
+  const handleSearchBar = () => {
+    setIsSearchBarOpen(() => !isSearchBarOpen);
   };
 
   return (
     <>
-      <div className="flex h-[60px] w-full gap-2 items-center sm:px-5 justify-between max-w-[1400px]  px-10 ">
+      <div className="flex h-[60px] w-full gap-2 items-center justify-between max-w-[1400px] px-7 sm:px-2 lg:px-10">
         {/* top left  */}
         <div className="logo text-[1rem]  font-bold lg:text-[1.4rem]  tracking-[2px] text-transparent  bg-clip-text bg-gradient-to-r from-yellow-default to-green-dark">
           <Link to="/">FashioNepa</Link>
         </div>
 
         {/* top right  */}
-        <div className="flex grow-[2]   justify-end items-center gap-8">
-          <div className="search_box overflow-hidden rounded-md max-w-xl  flex justify-end items-center w-full  relative  ">
-            <input
-              type="text"
-              className=" hidden md:block w-full   border-[1px] border-[#ccc] outline-yellow-dark p-2"
-            />
-            {isSearchboxOpen && (
-              <div
-                className="icon cursor-pointer rounded-md md:rounded-none md:absolute z-50  right-0 h-full grid place-items-center  md:bg-yellow-dark p-2"
-                onClick={handleSearchBox}
-              >
-                <AiOutlineSearch className="text-xl " />
-              </div>
-            )}
-          </div>
+        <div className="flex  grow-[2]  justify-end items-center gap-8">
 
+         <Search isSearchBarOpen={isSearchBarOpen} setIsSearchBarOpen={setIsSearchBarOpen}/>
+         <AiOutlineSearch className="max-w-[24px] w-full max-h-24 h-full cursor-pointer md:hidden" onClick={() => setIsSearchBarOpen(true)}/>
           {/* cart icon  */}
           <div className="  relative cursor-pointer">
             <Link to="./cart">
@@ -72,35 +53,17 @@ const Navbar = ({ handleMenu, isSidebarOpen }) => {
           >
             {isSidebarOpen ? <FaTimes /> : <AiOutlineMenu className="menu" />}
           </div>
-          <div className="hidden gap-4  md:flex">
-            <Link to="/login">Login</Link>
+          <div className="hidden gap-4  md:flex lg:gap-8">
+           {!currentUser && <Link to="/login">Login</Link>}
             <Link to="/account">Account</Link>
-            <Link to="/help">Help</Link>
+           <span className="relative"> <Link to="/watchlist">Watchlist <span className="absolute w-5 h-5 bg-yellow-dark text-white rounded-full text-center top-[-10px] right-[-5px]">{watchlist.length}</span></Link></span>
+           <Link to='/' className="grid text-xl"> <FaHome/></Link>
 
           </div>
         </div>
       </div>
 
-      {/* hidden search_box  */}
-      {!isSearchboxOpen && (
-        <div>
-          <input
-            type="text"
-            className="border-[.5px] px-16 rounded-sm absolute left-0 h-full right-0   md:hidden"
-          />
-
-          <span
-            className="absolute md:hidden text-2xl left-5 grid place-items-center h-full cursor-pointer "
-            onClick={handleSearchBox}
-          >
-            {" "}
-            <BiLeftArrow />
-          </span>
-          <span className="absolute md:hidden right-5 text-2xl grid place-items-center h-full">
-            <BiSearch />
-          </span>
-        </div>
-      )}
+    
     </>
   );
 };

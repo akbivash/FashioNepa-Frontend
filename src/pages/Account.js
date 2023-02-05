@@ -14,10 +14,10 @@ const signOut = () => {
 
   return (
     <div className="relative">
-  {currentUser === null  && <div className="text-center grid gap-2 py-10">
+  {currentUser === null  && <div className="text-center grid gap-8 py-10">
  
  <span>You have not created account yet</span>
- <Link to='/register' className="bg-green-dark px-5 w-fit mx-auto text-white">Sign Up</Link>
+ <Link to='/register' className="bg-green-dark p-5  w-fit mx-auto text-white">Sign Up</Link>
 </div>}
       {currentUser !== null  && <div className="grid gap-2 place-items-center p-4">
        <span className="font-bold text-5xl border-2 border-green-default rounded-full p-4">{currentUser.user.username.slice(0,1).toUpperCase()}</span>
@@ -26,20 +26,7 @@ const signOut = () => {
          FashioNepa
         </span></div>
         <Link to='/products' className="bg-green-dark px-4 text-white py-2">Shop Now</Link>
-        {/* <span>Email: {currentUser.user.email}</span> */}
-        
-        {/* <Link
-          className="bg-yellow-dark text-white py-1 px-4 rounded-md "
-          onClick={() => dispatch(openModal())}
-        >
-          Sign Out
-        </Link>
-        {isModal &&
-          <Modal>
-<span >Do you really want to leave us 🙁</span>
-<span className="flex gap-4"><button className="bg-yellow-dark px-3" onClick={signOut}>Yes</button><button className="bg-white text-black-default px-3" onClick={() => dispatch(closeModal())}>No</button></span>
-        </Modal>
-   } */}
+       <Link to='/logout' className="mt-4 bg-yellow-dark text-white py-2 px-4">Sign Out</Link>
       </div>}
     </div>
   );

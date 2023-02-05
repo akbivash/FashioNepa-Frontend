@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
-import { registerFailure, registerStart, registerSuccess } from '../redux/userSlice'
+import { registerFailure, registerStart, registerSuccess, setErrorMsg } from '../redux/userSlice'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -30,7 +30,7 @@ const dispatch = useDispatch()
     acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required')
   });
 
-const{isFetching, currentUser,error} = useSelector(state => state.user)
+const{isFetching, currentUser,error, errorMsg} = useSelector(state => state.user)
 const{isModal} = useSelector(state => state.modal)
 const navigate = useNavigate()
   const {
@@ -54,8 +54,16 @@ const navigate = useNavigate()
           navigate('/account')
           
       } catch (err) {
-          dispatch(registerFailure(err))
-          dispatch(openModal())
+       
+        console.log(err.message === 'Network Error')
+          dispatch(registerFailure())
+        if(err.message === 'Network Error'){
+            dispatch(setErrorMsg(err.message ))
+        }else{
+          dispatch(setErrorMsg(err.response.data.msg ))
+
+        }
+            dispatch(openModal())
       }
   }
    reg()
@@ -65,8 +73,9 @@ const navigate = useNavigate()
   return (
  <div className='grid  place-items-center mt-10 px-10'>
  {currentUser && <span>You are already registered</span>}
-
  {!currentUser && <> <h2 className='text-2xl font-[400] uppercase mb-4'>Create your account</h2>
+ {/* <span className='text-red-default'>{errorMsg}</span> */}
+
  <form action="" className='form w-full max-w-lg grid gap-3' onSubmit={handleSubmit(onSubmit)}>
 
 
@@ -137,7 +146,7 @@ const navigate = useNavigate()
           </button>
 
         { isModal && <Modal >
-<p>Username or email already exists.</p>
+<p>{errorMsg}</p>
 <button className='text-yellow-default' onClick={() => dispatch(closeModal())}><FaTimes/></button>
           </Modal>}
        

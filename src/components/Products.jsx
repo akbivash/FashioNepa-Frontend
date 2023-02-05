@@ -5,11 +5,12 @@ import { useFetch } from "../customhooks/useFetch";
 import Loading from './Loading'
 import { useLocation } from "react-router-dom";
 
-const Products = ({  filters, sort }) => {
+const Products = ({  filters,  sort }) => {
 const[page, setPage] = useState(1)
   const [filteredProducts, setFilteredProducts] = useState([]);
 const{products,isError,isLoading} = useFetch(page)
 const location = useLocation()
+
   useEffect(() => {
   filteredProducts && setFilteredProducts(
       products.filter((product) => {
@@ -60,10 +61,10 @@ const location = useLocation()
           })}
 
     </div>} 
-    {isLoading && !isError&& <Loading/>}
    
+    {isLoading && !isError&& <div className="py-16 ">  <Loading/> </div>}
      {!isError && !isLoading &&  location.pathname === '/' && <Pagination page={page} setPage={setPage} />}
-     {isError && <div className="text-center py-2">
+     {isError && <div className="text-center py-16">
    Failed to fetch, try Again 😐 
     </div>}   
 </>

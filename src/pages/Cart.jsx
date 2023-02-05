@@ -61,19 +61,15 @@ const resetAll = () => {
     </div>
   
   {/* bottom */}
-  <div className=" grid lg:flex lg:justify-around gap-4">
+  <div className=" grid  lg:flex lg:justify-around gap-4">
   {/* items  */}
-   <div className='p-2 grid gap-3 mx-auto w-full '>
+   <div className='p-2 h-[80vh] cart-scrollbar shadow-lg overflow-y-scroll scrollbar-thumb-gray-900 scrollbar-track-gray-100 grid gap-3 mx-auto w-full '>
    {cart.products.length != 0 && cart.products.map((product, index) => {
-   
       return   <div key={index} className='grid place-items-center md:flex md:justify-around gap-4  p-3 shadow-lg   shadow-[#ccc]'>
-        
-  
          <div className='w-full max-w-[300px]  '><img src={product.img} alt="" className='  w-full  h-[200px]'/></div>
-        
-          <div className='grid text-sm  md:text-lg gap-4'>
+          <div className='grid text-sm place-items-center  xl:text-lg gap-4'>
             <div >  <span>Product </span><span className='cart-product-detail' >{product.title}</span></div>
-              <div><span>color </span> {product.color && product.color.map(c => {return <span key={c}  className='cart-product-detail'>{c}</span>})} </div>
+              <div><span>color </span> {product.color && product.color.map(c => {return <span key={c}  className={`cart-product-detail`}>{c}</span>})} </div>
             <div>  <span>Size</span><span className='cart-product-detail' >{product.size}</span></div>
             {/* <span>{product._id}</span> */}
           </div>
@@ -87,7 +83,7 @@ const resetAll = () => {
      <span  className='bg-green-dark w-1 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-5 absolute'></span>
      </span>
      </div>
-     <span className='text-xl my-2 sm:text-2xl'>Rs { product.price * product.quantity}</span>
+     <span className='text-xl my-2 xl:text-2xl'>Rs { product.price * product.quantity}</span>
      <button className='bg-yellow-dark w-fit p-1 px-3 text-white' onClick={() => removeItem(product._id)}>Remove</button>
    </div>
    </div>
@@ -128,7 +124,7 @@ const resetAll = () => {
    {isModal && currentUser === null && <Modal className='fixed'>
             <div className="grid gap-2">
              <span className="flex gap-3 items-center"> Please sign up to add item <img src="https://em-content.zobj.net/source/skype/289/smiling-face-with-smiling-eyes_1f60a.png" alt="" className="h-10 w-10" /></span>
-             <span className="flex gap-3 items-center"><Link to='/register' className="bg-green-default py-2 text-[#000] px-7">Ok</Link> <Link to='/products' className="bg-yellow-default text-[#000] px-7 py-2">Cancel</Link></span>
+             <span className="flex gap-3 items-center"><Link to='/register' className="bg-green-default py-2 text-[#000] px-7">Ok</Link> <button className="bg-yellow-default text-[#000] px-7 py-2" onClick={() => dispatch(closeModal())}>Cancel</button></span>
             </div>
             </Modal>}
      </div>

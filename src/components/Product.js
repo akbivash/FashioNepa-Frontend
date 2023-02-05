@@ -1,33 +1,30 @@
-import React from 'react'
-import { useState } from 'react';
-import { FaSearch, FaCartPlus, FaHeart } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom'
-import { useCustomHook } from '../customhooks/useCustomHook';
-import { addToWatchList } from '../redux/cartSlice';
-import { closeModal, openModal } from '../redux/modalSlice';
+import React from "react";
+import { FaSearch, FaHeart } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { addToWatchList } from "../redux/cartSlice";
+import { closeModal, openModal } from "../redux/modalSlice";
 
-import Modal from './Modal';
+import Modal from "./Modal";
 
 const Product = ({ item }) => {
-  const category = useCustomHook().categoryRoute
-const {isModal} = useSelector(state => state.modal)
+  const category = useParams().category
+  const { isModal } = useSelector((state) => state.modal);
 
-  const dispatch = useDispatch()
-  const watchlist = useSelector(state => state.cart.watchlist)
-  
+  const dispatch = useDispatch();
+  const watchlist = useSelector((state) => state.cart.watchlist);
+
   const handleLove = (item) => {
-    dispatch(openModal())
-    dispatch(addToWatchList({ ...watchlist, item }))
+    dispatch(openModal());
+    dispatch(addToWatchList({item }));
 
     setTimeout(() => {
-    dispatch(closeModal())
-    }, 2000)
-  }
+      dispatch(closeModal());
+    }, 2000);
+  };
   return (
     <>
       <div className=" group relative  shadow-[0_4px_7px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden  w-full max-w-[400px] aspect-auto h-[260px] mx-auto shadow-cyan-500/50   ">
-
         <img
           src={item.img}
           alt="img"
@@ -37,19 +34,21 @@ const {isModal} = useSelector(state => state.modal)
           <div className="icons flex gap-4">
             <Link to={category ? `${item._id}` : `product/${item._id}`}>
               <FaSearch className="bg-white p-1  text-green-dark rounded-full text-3xl cursor-pointer" />
-
             </Link>
-            <FaHeart className="bg-white p-1  text-[red] rounded-full text-3xl cursor-pointer" onClick={() => handleLove(item)} />
-
-
+            <FaHeart
+              className="bg-white p-1  text-[red] rounded-full text-3xl cursor-pointer"
+              onClick={() => handleLove(item)}
+            />
           </div>
         </div>
       </div>
-      {isModal && <Modal className='fixed'>
-        <h2>Added to watchlist</h2>
-      </Modal>}
+      {isModal && (
+        <Modal className="fixed">
+          <h2>Added to watchlist</h2>
+        </Modal>
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
