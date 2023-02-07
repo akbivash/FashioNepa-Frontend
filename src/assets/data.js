@@ -60,9 +60,9 @@ export const sidebarLinks = [
       },
       {
         id: 992,
-        img: "https://i.insider.com/62ab95701c7744001959c43d?width=1136&format=jpeg",
-        title: "Drinks",
-        cat:"alcohol"
+        img: "https://i.etsystatic.com/21862112/r/il/857fe4/3106567431/il_fullxfull.3106567431_gv33.jpg",
+        title: "Jerseys and Music bands",
+        cat:"sportsentertainment"
     
       },
       {

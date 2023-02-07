@@ -36,7 +36,8 @@ const Product = () => {
   }
 
   function addToCart() {
-if(currentUser !== null){
+  
+if(currentUser !== null && product.price !== undefined){
   dispatch(openModal())
     dispatch(addProduct({ ...product, quantity, size: product.size, color: product.color }))
     setIsInCart(true)
@@ -52,7 +53,7 @@ if(currentUser !== null){
   return (
     <>
       {isLoading && <Loading />}
-      {!isLoading && isError && <div className="text-center mt-2">Sorry, try again 😐</div>}
+      {!isLoading && isError && <div className="text-center pt-7">Sorry, try again 😐</div>}
       {product && <div className="sm:flex pt-[8vh] grid px-2 place-items-center gap-8  sm:justify-center  ">
         <img
           src={product.img}
@@ -102,9 +103,9 @@ if(currentUser !== null){
             </div>
             {
               isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white w-[150px] text-center ">Open Cart</Link> : <button
-                className="bg-green-dark p-3 w-[150px] text-center rounded-sm text-white "
+                className="bg-green-dark p-3 w-[150px] text-center rounded-sm text-white disabled:opacity-50 "
                 onClick={addToCart}
-                disabled={isError || isLoading || product.length === 0}
+                disabled={product.price === undefined || product === undefined  || isError || isLoading   }
               >
                 ADD TO CART
               </button>

@@ -11,6 +11,16 @@ const Search = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const [searchedProducts, setSearchedProducts] = useState([])
   const [suggestionBox, setSuggestionBox] = useState(false)
 
+  useEffect(() => {
+document.addEventListener('click', handleSuggestionBox)
+  },[])
+function handleSuggestionBox(e){
+ if(!e.target.className.includes('search-ref')){
+  setSuggestionBox(false)
+  setSearchText('')
+  setIsSearchBarOpen(false)
+ }
+}
 
   useEffect(() => {
     const getProducts = async () => {
@@ -37,19 +47,19 @@ const Search = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
 
 
   return (
-    <div className='w-full  max-w-xl z-40 ' >
+    <div className='w-full  max-w-xl z-40 search-ref ' >
 
       {/* search bar for larger device  */}
-      {!isSearchBarOpen && <div className="h-fit  rounded-md flex  items-center w-full  relative  ">
+      {!isSearchBarOpen && <div className="h-fit search-ref  rounded-md flex  items-center w-full  relative  ">
         <input
           type="text"
-          className=" hidden md:block w-full  border-[1px] border-[#ccc] outline-yellow-dark p-2"
+          className=" hidden search-ref md:block w-full  border-[1px] border-[#ccc] outline-yellow-dark p-2"
           onChange={(e) => setSearchText(e.target.value)}
          value={searchText}
         />
         {/* suggestionBox */}
        
-       {suggestionBox && <div className='bg-white shadow-3xl hidden absolute left-0 shadow-sm shadow-[#ccc]  w-full md:grid gap-1  top-[50px]  text-center '>
+       {suggestionBox && <div className='bg-white search-ref shadow-3xl hidden absolute left-0 shadow-sm shadow-[#ccc]  w-full md:grid gap-1  top-[50px]  text-center '>
            {searchedProducts.length !== 0 ?  searchedProducts.slice(0, 10).map(p => {
             return <Link key={p._id} to={`/product/${p._id}`} className='font-semibold text-gray-default tracking-wider' onClick={() => setSuggestionBox(false)}>{p.title}</Link>
           }):'No results found'}
@@ -62,15 +72,15 @@ const Search = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
       </div>}
 
       {/* search bar for small device which is hidden initially */}
-      {isSearchBarOpen && <div className='z-[60]'>
+      {isSearchBarOpen && <div className='z-[60] search-ref'>
         <input
           onChange={(e) => setSearchText(e.target.value)}
           value={searchText}
           type="text"
-          className="border-[.5px] px-16 rounded-sm  absolute left-0 h-full right-0 top-0 "
+          className="border-[.5px] px-16 search-ref rounded-sm  absolute left-0 h-full right-0 top-0 "
         />
         {/* suggestionBox */}
-       { isSearchBarOpen && suggestionBox && <div className='bg-white shadow-3xl shadow-gray-dark py-2 w-full grid gap-1 absolute left-0 top-[60px] text-center max-w-2xl'>
+       { isSearchBarOpen && suggestionBox && <div className= 'search-ref bg-white shadow-3xl shadow-gray-dark py-2 w-full grid gap-1 absolute left-0 top-[60px] text-center max-w-2xl'>
           { searchedProducts.length !== 0 ? searchedProducts.slice(0, 10).map(p => {
             return <Link key={p._id} to={`/product/${p._id}`} className='font-semibold text-gray-default tracking-wider' onClick={() => setSuggestionBox(false)}>{p.title}</Link>
           }):'No results found'}

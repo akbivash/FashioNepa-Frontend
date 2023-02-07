@@ -11,12 +11,13 @@ const categories = [
   "Sports  Entertainment",
   "90's Fashion",
   "Made in Nepal",
+  "cap"
+
 ];
 
 const Dropdown = () => {
   const [showCategory, setShowCategory] = useState(false);
   const ref = useRef();
-  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -29,24 +30,21 @@ const Dropdown = () => {
 
 
   function showChooseBtn() {
-    if (window.scrollY > 150) {
+    if (window.scrollY > 100) {
       ref.current.style.display = "block";
     } else {
       ref.current.style.display = "none";
     }
   }
-  function handleLink(e) {
-    const category = e.target.textContent.toLowerCase().replace(/\s/g, '')
-    navigate(`/${category}`)
-  }
+
 
   return (
     <div
-      className=" fixed bg-white w-full grid shadow-sm shadow-[#aaae9f] "
+      className=" fixed bg-white z-50 w-full grid shadow-sm shadow-[#aaae9f] "
       ref={ref}
     >
       <span
-        className=" flex items-center font-bold text-gray-default  pl-10 gap-2 max-w-[40%]  z-[100]   cursor-pointer"
+        className=" flex items-center font-bold text-gray-default  pl-10 gap-2 max-w-[300px]  z-[100]   cursor-pointer"
         onMouseOver={() => setShowCategory(true)}
         onMouseOut={() => setShowCategory(false)}
       >
@@ -60,19 +58,19 @@ const Dropdown = () => {
         onMouseOver={() => setShowCategory(true)}
         onMouseOut={() => setShowCategory(false)}
         className={`${showCategory
-            ? "grid max-w-[40%] w-full absolute left-0 z-10 bg-white border-[#dfe0dc] border-2 place-items-center gap-2 p-3"
+            ? "grid max-w-[300px] w-full absolute left-0 z-10 bg-white border-[#dfe0dc] border-2 place-items-center gap-2 p-3"
             : "hidden "
           }`}
       >
         {categories.map((cat) => {
           return (
-            <span
-              onClick={handleLink}
+            <Link
               key={cat}
+              to={`/${cat}`.toLowerCase().replace(/\s/g, '')}
               className={` border-b-gray-light cursor-pointer border-b-[1px]`}
             >
               {cat}
-            </span>
+            </Link>
           );
         })}
       </div>

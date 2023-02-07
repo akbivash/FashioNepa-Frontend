@@ -9,22 +9,22 @@ const Slider = () => {
   const [index, setIndex] = useState(0);
   const sliderContainerRef = useRef();
 
-  useEffect(() => {
-    sliderContainerRef.current.style.transform = `translateX(calc(-${
-     100 * index
-    }%))`;
+//   useEffect(() => {
+//     sliderContainerRef.current.style.transform = `translateX(calc(-${
+//      100 * index
+//     }%))`;
  
-sliderContainerRef.current.style.transition = '1s'
-let intervelID =  setInterval(() => {
-setIndex(prev => prev + 1)
-if(index === sliderItems.length - 1){
-  setIndex(0)
-}
-},4000)
-    return () => {
-      clearInterval(intervelID)
-    };
-  }, [index]);
+// sliderContainerRef.current.style.transition = '1s'
+// let intervelID =  setInterval(() => {
+// setIndex(prev => prev + 1)
+// if(index === sliderItems.length - 1){
+//   setIndex(0)
+// }
+// },4000)
+//     return () => {
+//       clearInterval(intervelID)
+//     };
+//   }, [index]);
 
  
 

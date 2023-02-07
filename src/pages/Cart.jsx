@@ -63,7 +63,7 @@ const resetAll = () => {
   {/* bottom */}
   <div className=" grid  lg:flex lg:justify-around gap-4">
   {/* items  */}
-   <div className='p-2 h-[80vh] cart-scrollbar shadow-lg overflow-y-scroll scrollbar-thumb-gray-900 scrollbar-track-gray-100 grid gap-3 mx-auto w-full '>
+   <div className='p-2 max-h-[80vh] cart-scrollbar shadow-lg overflow-y-scroll scrollbar-thumb-gray-900 scrollbar-track-gray-100 grid gap-3 mx-auto w-full '>
    {cart.products.length != 0 && cart.products.map((product, index) => {
       return   <div key={index} className='grid place-items-center md:flex md:justify-around gap-4  p-3 shadow-lg   shadow-[#ccc]'>
          <div className='w-full max-w-[300px]  '><img src={product.img} alt="" className='  w-full  h-[200px]'/></div>

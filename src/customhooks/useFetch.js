@@ -2,19 +2,34 @@ import { useEffect, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { publicRequest } from "../requestMethods"
 
-export const useFetch = (page) => {
-    const [limit, setLimit] = useState(4)
+export const useFetch = (page, filteredProducts) => {
     const category = useParams().category
     const [products, setProducts] = useState([])
+    const[allProducts, setAllProducts] = useState([])
     const [product, setProduct] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const location = useLocation()
-    
+   
     let id = location.pathname.split("/")[2]
     if (id === 'product' || id === category) {
         id = location.pathname.split("/")[3]
     }
+useEffect(() => {
+    const getProducts = async () => {
+        setIsLoading(true)
+        try {
+
+            const res = await publicRequest.get(`api/v1/products/` );
+            setAllProducts(res.data)
+            setIsLoading(false)
+        } catch (err) {
+            setIsError(true)
+            setIsLoading(false)
+        }
+    }
+    getProducts()
+},[])
 
     useEffect(() => {
         const getProducts = async () => {
@@ -24,8 +39,7 @@ export const useFetch = (page) => {
                 const res = await publicRequest.get(
                     category
                         ? `api/v1/products/?category=${category}`
-                        : location.pathname === '/products' ?  `api/v1/products/?page=1&limit=10`
-                        : `api/v1/products/?page=${page}&limit=${limit}`
+                        : `api/v1/products/?page=1&limit=10`
                 );
                 setProducts(res.data)
                 setIsLoading(false)
@@ -35,7 +49,8 @@ export const useFetch = (page) => {
             }
         }
         getProducts()
-    }, [page, category])
+       
+    }, [ category])
 
     useEffect(() => {
         const getProduct = async () => {
@@ -53,6 +68,6 @@ export const useFetch = (page) => {
         getProduct()
     }, [id])
 
-    return { products, product, isError, isLoading, limit, category }
+    return { products, product, isError, isLoading,category, allProducts }
 
 }

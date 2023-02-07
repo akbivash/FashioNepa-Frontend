@@ -65,7 +65,7 @@ const App = () => {
   return (
     <>
       <div className="app relative">
-    {!currentUser && <Notification/>}
+    {/* {!currentUser && <Notification/>} */}
         <div className="navbar z-40  bg-white flex  sm:px-2 fixed top-0 shadow-sm justify-center  shadow-[#ccc]    w-full ">
        
           <Navbar handleMenu={handleMenu} isSidebarOpen={isSidebarOpen} />
