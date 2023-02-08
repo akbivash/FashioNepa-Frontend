@@ -40,7 +40,7 @@ const Dropdown = () => {
 
   return (
     <div
-      className=" fixed bg-white z-50 w-full grid shadow-sm shadow-[#aaae9f] "
+      className=" fixed bg-white z-40 w-full grid shadow-sm shadow-[#aaae9f] "
       ref={ref}
     >
       <span

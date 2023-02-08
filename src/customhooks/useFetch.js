@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { publicRequest } from "../requestMethods"
 
-export const useFetch = (page, filteredProducts) => {
+export const useFetch = () => {
     const category = useParams().category
     const [products, setProducts] = useState([])
     const[allProducts, setAllProducts] = useState([])

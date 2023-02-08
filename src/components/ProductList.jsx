@@ -28,6 +28,7 @@ const ProductList = () => {
         <h2>Filter Products </h2>
         <select className='border-gray border-[1px] rounded-sm' name='color' onChange={handleFilter}  >
           <option value='' >Color</option>
+          <option value='white' >White</option>
           <option value="red">Red</option>
           <option value="black">Black</option>
           <option value="yellow">Yellow</option>

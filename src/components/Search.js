@@ -4,23 +4,20 @@ import { useEffect, useState } from "react";
 import { AiOutlineSearch } from 'react-icons/ai'
 import { publicRequest } from '../requestMethods';
 import {FaTimes} from 'react-icons/fa'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const Search = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const [products, setProducts] = useState([])
   const [searchText, setSearchText] = useState('')
   const [searchedProducts, setSearchedProducts] = useState([])
   const [suggestionBox, setSuggestionBox] = useState(false)
-
-  useEffect(() => {
-document.addEventListener('click', handleSuggestionBox)
-  },[])
-function handleSuggestionBox(e){
- if(!e.target.className.includes('search-ref')){
-  setSuggestionBox(false)
-  setSearchText('')
-  setIsSearchBarOpen(false)
- }
-}
+const location = useLocation()
+useEffect(() => {
+  
+  return ()=> {
+    setIsSearchBarOpen(false)
+setSearchText('')
+  }
+},[location.pathname])
 
   useEffect(() => {
     const getProducts = async () => {

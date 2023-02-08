@@ -8,7 +8,7 @@ const{currentUser} = useSelector(state => state.user)
 
   return (
     <>
-      <ul className="grid bg-white z-40 gap-4 transition-all duration-500 py-3 ">
+      <ul className="grid bg-white z-50 gap-4 transition-all duration-500 py-3 ">
         {sidebarLinks.map((l) => {
           return (
             <Link

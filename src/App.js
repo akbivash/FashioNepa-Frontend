@@ -2,9 +2,6 @@ import React from "react";
 
 import "./index.css";
 import Navbar from "./components/Navbar";
-import Slider from "./components/Slider";
-import Products from "./components/Products";
-// import NewsLetter from './components/NewsLetter'
 import Register from "./pages/Register";
 import Footer from "./components/Footer";
 import Product from "./pages/Product";
@@ -20,7 +17,6 @@ import {
 import { useEffect } from "react";
 import ProductList from "./components/ProductList";
 import Pay from "./pages/stripe/Pay";
-import ProductDisplay from "./pages/stripe/Pay";
 import Success from "./pages/Success";
 import { useState } from "react";
 import Notification from "./components/Notification";
@@ -35,7 +31,7 @@ import { setErrorMsg } from "./redux/userSlice";
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const { pathname } = useLocation()
-  const{currentUser} = useSelector(state => state.user)
+  const { currentUser } = useSelector(state => state.user)
   const dispatch = useDispatch()
   const location = useLocation()
 
@@ -65,9 +61,9 @@ const App = () => {
   return (
     <>
       <div className="app relative">
-    {/* {!currentUser && <Notification/>} */}
-        <div className="navbar z-40  bg-white flex  sm:px-2 fixed top-0 shadow-sm justify-center  shadow-[#ccc]    w-full ">
-       
+        {!currentUser && <Notification />}
+        <div className="navbar z-50  bg-white flex  sm:px-2 fixed top-0 shadow-sm justify-center  shadow-[#ccc]    w-full ">
+
           <Navbar handleMenu={handleMenu} isSidebarOpen={isSidebarOpen} />
           <div className={`${isSidebarOpen ? "fixed right-0 top-[60px] bg-white shadow-md  z-[100] w-full max-w-md  duration-300 opacity-100"
             : " absolute right-[-50%] opacity-0 top-[9vh] duration-500"}`}><Sidebar /> </div>
@@ -82,9 +78,9 @@ const App = () => {
             <Route path="/products/product/:id" element={<Product />} />
             <Route path="/:category/:id" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/login" exact element={<Login state={location.pathname}/>} />
+            <Route path="/login" exact element={<Login state={location.pathname} />} />
             <Route path="/logout" element={<Logout />} />
-           <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/checkout" element={<Pay />} />
             <Route path="/checkout/success" element={<Success />} />
             <Route path="/watchlist" element={<Watchlist />} />

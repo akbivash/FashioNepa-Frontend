@@ -1,7 +1,6 @@
 import React from 'react'
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link,  } from 'react-router-dom'
 import Pay from './stripe/Pay'
 import Modal from '../components/Modal'
 import { decreaseQuantity, increaseQuantity, removeProduct, resetState } from '../redux/cartSlice'
@@ -69,7 +68,7 @@ const resetAll = () => {
          <div className='w-full max-w-[300px]  '><img src={product.img} alt="" className='  w-full  h-[200px]'/></div>
           <div className='grid text-sm place-items-center  xl:text-lg gap-4'>
             <div >  <span>Product </span><span className='cart-product-detail' >{product.title}</span></div>
-              <div><span>color </span> {product.color && product.color.map(c => {return <span key={c}  className={`cart-product-detail`}>{c}</span>})} </div>
+              <div><span>color </span> {product.color &&  <span  className='font-semibold'>{product.color}</span>} </div>
             <div>  <span>Size</span><span className='cart-product-detail' >{product.size}</span></div>
             {/* <span>{product._id}</span> */}
           </div>

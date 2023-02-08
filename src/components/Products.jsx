@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Pagination from "./Pagination";
 import Product from '../components/Product'
 import { useFetch } from "../customhooks/useFetch";
 import Loading from './Loading'
-import { useLocation } from "react-router-dom";
 
 const Products = ({ filters, sort }) => {
 
 
-  const { isError, isLoading,  products,category} = useFetch()
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(4)
+  const { isError, isLoading,  products} = useFetch()
+
 const[filteredProducts,setFilteredProducts] = useState(products)
 
 useEffect(() => {
-setFilteredProducts(products)
+setFilteredProducts(products.sort((a,b) => {
+  return new Date(b.createdAt) - new Date(a.createdAt)
+}))
 },[products])
 
 useEffect(() => {
@@ -50,36 +49,21 @@ return product
        return b.price - a.price;
      })
    );
- }else if( sort === "newest"){
+ }else {
    setFilteredProducts( [...filteredProducts].sort((a,b) => {
-     return b.createAt - a.createdAt
+     return new Date(b.createdAt) - new Date(a.createdAt)
    }))
  }
-
   }, [ sort]);
 
   return (
     <>
-    
- 
       <div className='grid grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))] justify-center place-content-center  md:grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2'>
-        
-       {   filteredProducts.length !== 0 ? filteredProducts.map(item => {
+       {  filteredProducts.length !== 0 ? filteredProducts.map(item => {
             return <Product item={item} key={item._id}   />;
-          }) :  <span className="mx-auto pt-14 pb-8">No results found</span>
-        
-          
+          }) : isLoading && !isError ?  <div className="py-16 ">  <Loading /> </div>: <span className="mx-auto pt-14 pb-8">No results found</span>
        }
-          
-
       </div>
-      {isLoading && !isError && <div className="py-16 ">  <Loading /> </div>}
-      { isError && <div className="text-center py-8">
-        Failed to fetch, try Again 😐
-      </div>}
-      {/* {!isError && !isLoading  && <Pagination page={page} setPage={setPage} limit={limit} setStartIndex={setStartIndex} setEndIndex={setEndIndex} />} */}
-
-   
     </>
   );
 };

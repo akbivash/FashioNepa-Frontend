@@ -5,15 +5,20 @@ import { addProduct } from "../redux/cartSlice";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import { useFetch } from "../customhooks/useFetch";
+import {BsPlusSquare,} from 'react-icons/bs'
+import {AiOutlineMinusCircle} from   'react-icons/ai';
+import {BiPlusCircle} from 'react-icons/bi'
 import { closeModal, openModal, setText } from "../redux/modalSlice";
 
 const Product = () => {
   const dispatch = useDispatch()
   const { isModal } = useSelector(state => state.modal)
-  const [quantity, setQuantity] = useState(1);
   const [isInCart, setIsInCart] = useState(false)
+  const [quantity, setQuantity] = useState(1);
   const { product, isLoading, isError } = useFetch()
-  const{currentUser} = useSelector(state => state.user)
+  let color = product.color && product.color.length > 1 ? product.color[0] : product.color
+  let size = product.size && product.size.length > 1 ? product.size[0] : product.size
+  const { currentUser } = useSelector(state => state.user)
   const cartProducts = useSelector(state => state.cart.products)
 
   useEffect(() => {
@@ -36,20 +41,22 @@ const Product = () => {
   }
 
   function addToCart() {
-  
-if(currentUser !== null && product.price !== undefined){
-  dispatch(openModal())
-    dispatch(addProduct({ ...product, quantity, size: product.size, color: product.color }))
-    setIsInCart(true)
-    setTimeout(() => { dispatch(closeModal()) }, 1000)
-  }else{
-   dispatch(openModal())
-  
+    if (currentUser !== null && product.price !== undefined) {
+      dispatch(openModal())
+      dispatch(addProduct({ ...product, quantity, size, color }))
+      setIsInCart(true)
+      setTimeout(() => { dispatch(closeModal()) }, 1000)
+    } else {
+      dispatch(openModal())
+    }
   }
-    
-}
 
-
+  const handleColor = (e) => {
+    color = e.target.value
+  }
+  const handleSize = (e) => {
+    size = e.target.value
+  }
   return (
     <>
       {isLoading && <Loading />}
@@ -64,24 +71,20 @@ if(currentUser !== null && product.price !== undefined){
         <div className="flex flex-col items-center gap-4">
           <h2 className="text-3xl ">{product.title}</h2>
           <p className="text-center">{product.desc}</p>
-
           <span className="text-2xl">Rs {product.price}</span>
-
           <div className="flex items-center gap-3">
             <span>Color</span>
-            <select className=" mx-2 border-2 text-black rounded-sm outline-none ">
+            <select className=" mx-2 border-2 text-black rounded-sm outline-none " onChange={handleColor}>
               {product && product.color && product.color.map((color) => {
-
                 return <option value={color} key={color} >{color}</option>
               })}
             </select>
 
             <div className="size_btn flex">
               <span>Size</span>
-              <select className=" mx-2 border-2 text-black rounded-sm outline-none ">
-
+              <select className=" mx-2 border-2 text-black rounded-sm outline-none " onChange={handleSize}>
                 {product.size && product.size.map(size => {
-                  return <option value={size} key={size}>{size}</option>
+                  return <option value={size} key={size} >{size}</option>
                 })}
               </select>
             </div>
@@ -90,22 +93,19 @@ if(currentUser !== null && product.price !== undefined){
           <div className="flex gap-10 ">
             <div className="flex gap-5 items-center">
               <span
-                className="bg-yellow-dark cursor-pointer w-5 h-1 "
+                className="text-4xl text-yellow-dark cursor-pointer"
                 onClick={() => handleQuantity("dec")}
-              ></span>
-              <span className="text-2xl">{quantity}</span>
-              <span className="bg-green-dark cursor-pointer w-5 h-1 relative">
-                <span
-                  className="bg-green-dark w-1 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] h-5 absolute"
-                  onClick={() => handleQuantity("inc")}
-                ></span>
+              ><AiOutlineMinusCircle/></span>
+              <span className="text-2xl ">{quantity}</span>
+              <span className="text-green-dark cursor-pointer text-4xl relative"   onClick={() => handleQuantity("inc")}>
+                <BiPlusCircle/>
               </span>
             </div>
             {
               isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white w-[150px] text-center ">Open Cart</Link> : <button
                 className="bg-green-dark p-3 w-[150px] text-center rounded-sm text-white disabled:opacity-50 "
                 onClick={addToCart}
-                disabled={product.price === undefined || product === undefined  || isError || isLoading   }
+                disabled={product.price === undefined || product === undefined || isError || isLoading}
               >
                 ADD TO CART
               </button>
@@ -114,10 +114,10 @@ if(currentUser !== null && product.price !== undefined){
               <h2>Added to cart</h2>
             </Modal>}
             {isModal && currentUser === null && <Modal className='fixed'>
-            <div className="grid gap-2">
-             <span className="flex gap-2 items-center"> Please sign up to add item <img src="https://em-content.zobj.net/source/skype/289/smiling-face-with-smiling-eyes_1f60a.png" alt="" className="h-10 w-10" /></span>
-             <span className="flex gap-3 items-center"><Link to='/register' className="bg-green-default py-2 text-[#000] px-7">Ok</Link> <Link to='/products' className="bg-yellow-default text-[#000] px-7 py-2">Cancel</Link></span>
-            </div>
+              <div className="grid gap-2">
+                <span className="flex gap-2 items-center"> Please sign up to add item <img src="https://em-content.zobj.net/source/skype/289/smiling-face-with-smiling-eyes_1f60a.png" alt="" className="h-10 w-10" /></span>
+                <span className="flex gap-3 items-center"><Link to='/register' className="bg-green-default py-2 text-[#000] px-7">Ok</Link> <Link to='/products' className="bg-yellow-default text-[#000] px-7 py-2">Cancel</Link></span>
+              </div>
             </Modal>}
           </div>
         </div>
