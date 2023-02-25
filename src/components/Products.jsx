@@ -34,6 +34,7 @@ return product
         }
       })
     ); 
+
     
   }, [ filters]);
   useEffect(() => {
@@ -55,14 +56,17 @@ return product
    }))
  }
   }, [ sort]);
-
+  
   return (
     <>
       <div className='grid grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))] justify-center place-content-center  md:grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2'>
-       {  filteredProducts.length !== 0 ? filteredProducts.map(item => {
+       {  filteredProducts.length !== 0 && filteredProducts.map(item => {
             return <Product item={item} key={item._id}   />;
-          }) : isLoading && !isError ?  <div className="py-16 ">  <Loading /> </div>: <span className="mx-auto pt-14 pb-8">No results found</span>
+          })
        }
+{isError && <span className="text-center py-20">Failed to fetch, try again 😐</span>}
+      {!isError && isLoading &&  <span className="py-20"><Loading /></span>}
+       {filteredProducts.length === 0 && ( filters.color !== undefined || filters.size !== undefined) && <span className="text-center">No result found</span>}
       </div>
     </>
   );

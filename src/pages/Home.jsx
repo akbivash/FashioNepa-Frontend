@@ -27,7 +27,6 @@ useEffect(() => {
   setEndIndex(page * limit)
 }, [page])
 
-
   return (
     <div className="home grid gap-2 relative  ">
       <div className="flex ">

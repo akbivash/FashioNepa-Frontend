@@ -64,8 +64,8 @@ const resetAll = () => {
   {/* items  */}
    <div className='p-2 max-h-[80vh] cart-scrollbar shadow-lg overflow-y-scroll scrollbar-thumb-gray-900 scrollbar-track-gray-100 grid gap-3 mx-auto w-full '>
    {cart.products.length != 0 && cart.products.map((product, index) => {
-      return   <div key={index} className='grid place-items-center md:flex md:justify-around gap-4  p-3 shadow-lg   shadow-[#ccc]'>
-         <div className='w-full max-w-[300px]  '><img src={product.img} alt="" className='  w-full  h-[200px]'/></div>
+      return   <div key={index} className='grid place-items-center md:flex md:justify-around gap-4  p-3 shadow-sm   shadow-[#ccc]'>
+         <div className='w-full max-w-[300px]  '><img src={product.img} alt="" className='  w-full  h-[200px] object-cover'/></div>
           <div className='grid text-sm place-items-center  xl:text-lg gap-4'>
             <div >  <span>Product </span><span className='cart-product-detail' >{product.title}</span></div>
               <div><span>color </span> {product.color &&  <span  className='font-semibold'>{product.color}</span>} </div>
@@ -94,7 +94,7 @@ const resetAll = () => {
   {/* order summary  */}
   
   
-    {cart.products.length !== 0 &&  <div className='summary w-full  max-w-[350px] grid  shadow-lg shadow-[#ccc] mx-auto gap-7 '>
+    {cart.products.length !== 0 &&  <div className='summary w-full h-fit max-w-[350px] grid  shadow-sm shadow-[#ccc] mx-auto gap-7 '>
       <div className=' w-full   p-4'>
           <h2 className='text-2xl text-green-dark'>ORDER SUMMARY</h2>
               <div className='grid gap-2 w-full'>

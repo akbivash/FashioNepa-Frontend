@@ -29,7 +29,7 @@ setSearchText('')
       }
     }
     getProducts()
-  }, [])
+  }, [searchText])
 
   useEffect(() => {
     if(!searchText){

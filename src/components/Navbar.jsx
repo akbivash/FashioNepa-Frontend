@@ -57,7 +57,7 @@ const Navbar = ({ handleMenu, isSidebarOpen }) => {
            {!currentUser && <Link to="/login">Login</Link>}
             <Link to="/account">Account</Link>
            <span className="relative"> <Link to="/watchlist">Watchlist <span className="absolute w-5 h-5 bg-yellow-dark text-white rounded-full text-center top-[-10px] right-[-5px]">{watchlist.length}</span></Link></span>
-           <Link to='/' className="grid text-xl"> <FaHome/></Link>
+           <Link to='/' className="grid text-xl text-green-dark"> <FaHome/></Link>
 
           </div>
         </div>

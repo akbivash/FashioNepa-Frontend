@@ -65,7 +65,7 @@ const Product = () => {
         <img
           src={product.img}
           alt=""
-          className=" w-full max-w-[380px] h-[300px] sm:h-[400px] rounded-sm "
+          className=" w-full max-w-[380px] h-[300px] sm:h-[400px] object-cover rounded-sm "
         />
 
         <div className="flex flex-col items-center gap-4">

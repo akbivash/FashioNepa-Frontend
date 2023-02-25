@@ -20,8 +20,8 @@ const signOut = () => {
  <Link to='/register' className="bg-green-dark p-5  w-fit mx-auto text-white">Sign Up</Link>
 </div>}
       {currentUser !== null  && <div className="grid gap-2 place-items-center p-4">
-       <span className="font-bold text-5xl border-2 border-green-default rounded-full p-4">{currentUser.user.username.slice(0,1).toUpperCase()}</span>
-        <span>Hello {currentUser.user.username}</span>
+       <span className="font-bold text-5xl border-2 border-green-default rounded-full text-green-default p-4">{currentUser.user.username.slice(0,1).toUpperCase()}</span>
+        <span className="font-semibold">Hello {currentUser.user.username}</span>
         <div>Welcome to  <span className="logo  pl-2  font-bold text-[1.4rem]  tracking-[2px] text-transparent  bg-clip-text bg-gradient-to-r from-yellow-default to-green-dark">
          FashioNepa
         </span></div>

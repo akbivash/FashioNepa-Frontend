@@ -13,8 +13,8 @@ import { icons } from "../assets/data";
 
 const Footer = () => {
   return (
-    <div className="max-w-[1400px] bg-tahiti-dark text-white mx-auto   grid p-4 py-10 gap-10 justify-center sm:flex flex-wrap sm:justify-around">
-      <div className=" grid gap-10 w-full max-w-[350px] ">
+    <div className="max-w-[1400px] bg-tahiti-dark text-white mx-auto   grid p-4  py-10 gap-10 justify-center   md:flex  md:justify-around">
+      <div className="  grid h-fit flex-[0.7]  gap-4  text-center ">
         <h2 className="text-2xl font-[Ubuntu] tracking-wide font-black ">
           {" "}
           FashioNepa
@@ -24,7 +24,7 @@ const Footer = () => {
           accusantium eius omnis repellendus eligendi Numquam omnis facere
           neque.
         </p>
-        <div className="flex gap-4 mt-4 text-4xl  h-10">
+        <div className="flex justify-center gap-4 mt-4 text-4xl  h-10">
           {icons.map((i) => {
             return (
               <img
@@ -38,7 +38,8 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="max-w-[400px]   grid gap-7 ">
+     <div className="grid gap-4 flex-1  sm:flex  justify-around">
+     <div className=" grid gap-4  ">
         <h4 className="text-2xl">Useful Links</h4>
         <div className="flex gap-10 font-[500]">
           <ul className="grid  gap-3">
@@ -66,7 +67,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className=" grid  gap-4">
+      <div className=" h-fit grid gap-4  ">
         <h4 className="text-2xl font-[500]">Contact</h4>
         <span className="flex items-center gap-4">
           <i>
@@ -90,8 +91,9 @@ const Footer = () => {
         <span className="flex items-center gap-4">
           <BsPaypal /> <FaCcVisa />{" "}
         </span>
-        <div></div>
+        
       </div>
+     </div>
     </div>
   );
 };
