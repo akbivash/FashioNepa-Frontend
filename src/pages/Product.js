@@ -61,14 +61,14 @@ const Product = () => {
     <>
       {isLoading && <Loading />}
       {!isLoading && isError && <div className="text-center pt-7">Sorry, try again 😐</div>}
-      {product && <div className="sm:flex pt-[8vh] grid px-2 place-items-center gap-8  sm:justify-center  ">
+      {product && <div className="sm:flex pt-[8vh] grid px-4 place-items-center gap-8  lg:gap-20 sm:justify-center  ">
         <img
           src={product.img}
           alt=""
-          className=" w-full max-w-[380px] h-[300px] sm:h-[400px] object-cover rounded-sm "
+          className=" w-full max-w-[300px] h-[260px] sm:h-[400px] md:max-w-[400px] object-cover rounded-sm "
         />
 
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-6">
           <h2 className="text-3xl ">{product.title}</h2>
           <p className="text-center">{product.desc}</p>
           <span className="text-2xl">Rs {product.price}</span>
@@ -102,8 +102,8 @@ const Product = () => {
               </span>
             </div>
             {
-              isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white w-[150px] text-center ">Open Cart</Link> : <button
-                className="bg-green-dark p-3 w-[150px] text-center rounded-sm text-white disabled:opacity-50 "
+              isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white  text-center ">Open Cart</Link> : <button
+                className="bg-green-dark p-3  text-center rounded-sm text-white disabled:opacity-50 "
                 onClick={addToCart}
                 disabled={product.price === undefined || product === undefined || isError || isLoading}
               >

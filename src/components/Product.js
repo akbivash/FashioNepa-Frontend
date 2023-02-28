@@ -32,7 +32,7 @@ const Product = ({ item }) => {
         />
         <div className="absolute w-fit h-fit top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-4 invisible group-hover:visible transition-all group-hover:transition-all group-hover:bg-[rgba(0,0,0,0.3)] z-10 ">
           <div className="icons flex gap-4">
-            <Link to={category ? `${item._id}` : `product/${item._id}`}>
+            <Link to={category ? `/category/${category}/${item._id}` : `product/${item._id}`}>
               <FaSearch className="bg-white p-1  text-green-dark rounded-full text-3xl cursor-pointer" />
             </Link>
             <FaHeart

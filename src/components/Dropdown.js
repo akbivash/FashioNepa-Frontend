@@ -66,7 +66,7 @@ const Dropdown = () => {
           return (
             <Link
               key={cat}
-              to={`/${cat}`.toLowerCase().replace(/\s/g, '')}
+              to={`category/${cat}`.toLowerCase().replace(/\s/g, '')}
               className={` border-b-gray-light cursor-pointer border-b-[1px]`}
             >
               {cat}

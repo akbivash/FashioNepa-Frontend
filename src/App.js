@@ -1,29 +1,14 @@
 import React from "react";
-
+import { useState, useEffect } from "react";
 import "./index.css";
-import Navbar from "./components/Navbar";
-import Register from "./pages/Register";
-import Footer from "./components/Footer";
-import Product from "./pages/Product";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Cart from "./pages/Cart";
+import { Navbar, Footer, NotFound, Notification, ProductList, Sidebar } from './components'
+import { Login, Logout, Account, Watchlist, Cart, Home, Product, Success, Register } from './pages'
 import {
   Routes,
   Route,
-
   useLocation,
 } from "react-router-dom";
-import { useEffect } from "react";
-import ProductList from "./components/ProductList";
 import Pay from "./pages/stripe/Pay";
-import Success from "./pages/Success";
-import { useState } from "react";
-import Notification from "./components/Notification";
-import Sidebar from "./components/Sidebar";
-import Account from "./pages/Account";
-import Logout from "./pages/Logout";
-import Watchlist from "./pages/Watchlist";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "./redux/modalSlice";
 import { setErrorMsg } from "./redux/userSlice";
@@ -34,7 +19,7 @@ const App = () => {
   const { currentUser } = useSelector(state => state.user)
   const dispatch = useDispatch()
   const location = useLocation()
-
+  
   useEffect(() => {
     window.scrollTo(0, 0);
     return () => {
@@ -73,10 +58,10 @@ const App = () => {
             <Route path="/" element={<Home isSidebarOpen={isSidebarOpen} />} />
             <Route path="/account" element={<Account />} />
             <Route path="/products" element={<ProductList />} />
-            <Route path="/:category" element={<ProductList />} />
+            <Route path="/category/:category" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />
             <Route path="/products/product/:id" element={<Product />} />
-            <Route path="/:category/:id" element={<Product />} />
+            <Route path={`/category/:category/:id`} element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" exact element={<Login state={location.pathname} />} />
             <Route path="/logout" element={<Logout />} />
@@ -85,6 +70,7 @@ const App = () => {
             <Route path="/checkout/success" element={<Success />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/watchlist/:id" element={<Product />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <div className="bg-green-dark">

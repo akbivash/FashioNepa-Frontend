@@ -34,7 +34,7 @@ useEffect(() => {
           {categories.map((cat) => {
             return (
               <Link
-                to={`${cat.toLowerCase().replace(/\s+/g, "")}`}
+                to={`category/${cat.toLowerCase().replace(/\s+/g, "")}`}
                 key={cat}
                 className="cursor-pointer h-fit"
               >
