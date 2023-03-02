@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { resetState } from '../redux/cartSlice'
 import { logoutSuccess } from '../redux/userSlice'
 
 const Logout = () => {
@@ -9,6 +10,7 @@ const Logout = () => {
 
 const handleLogout = () => {
 dispatch(logoutSuccess())
+dispatch(resetState())
 navigate('/')
 }
   return (

@@ -39,6 +39,7 @@ state.error = true
     state.isFetching = false 
     state.error  = false
     state.currentUser = null
+
       }),
   setErrorMsg:((state, action)=> {
 state.isFetching = false

@@ -29,7 +29,7 @@ const Watchlist = () => {
                         </div>
                     </div>
                 </div>
-            }) : <span className='py-20 text-xl md:text-2xl md:py-32'>No items, Add to the watchlist first</span>}
+            }) : <span className='py-20 text-xl md:text-2xl md:py-32'>No items, add to the watchlist first</span>}
         </div>
     )
 }

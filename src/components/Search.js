@@ -36,7 +36,7 @@ setSearchText('')
     setSuggestionBox(false)
     }else{
        setSuggestionBox(true)
-    setSearchedProducts(products.filter(item => item.title.toLowerCase().trim('').includes(searchText)))
+    setSearchedProducts(products.filter(item => item.title.toLowerCase().trim('').includes(searchText.toLocaleLowerCase())))
     }
  
   }, [searchText])

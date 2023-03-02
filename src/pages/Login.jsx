@@ -28,14 +28,14 @@ useEffect(() => {
   function handleLogin(e){
 e.preventDefault()
 login(dispatch, {username, password})
-if(!isFetching && error && errorMsg === ""){
-  dispatch( setErrorMsg('server error, try again'))
- }
+// if(!isFetching && error && errorMsg === ""){
+//   dispatch( setErrorMsg('server error, try again'))
+//  }
 
- setTimeout(() => {
-  dispatch( setErrorMsg(''))
+//  setTimeout(() => {
+//   dispatch( setErrorMsg(''))
 
-  },[2000])
+//   },[2000])
   }
 function handleForgot(e){
   e.preventDefault()

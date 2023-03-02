@@ -11,6 +11,10 @@ export const login = async (dispatch, user) => {
         dispatch(loginSuccess(response))
     } catch (err) {
         dispatch(loginFailure())
+        if(err.message === 'Network Error'){
+        dispatch(setErrorMsg('Network Error, try again '))
+
+        }
         dispatch(setErrorMsg(err.response.data.msg))
     
     }
