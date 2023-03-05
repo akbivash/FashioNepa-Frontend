@@ -44,7 +44,7 @@ function handleForgot(e){
   return (
     <>
 
-    <div className=" flex justify-center  items-center p-3 ">
+    <div className=" flex justify-center min-h-screen   p-3 ">
     {currentUser && <span className="py-7">You are  logged in</span>}
     {!currentUser &&   <form
         action=""

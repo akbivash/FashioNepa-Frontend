@@ -102,8 +102,8 @@ const Product = () => {
               </span>
             </div>
             {
-              isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white  text-center ">Open Cart</Link> : <button
-                className="bg-green-dark p-3  text-center rounded-sm text-white disabled:opacity-50 "
+              isInCart ? <Link to='/cart' className="bg-green-dark p-3 rounded-sm text-white  text-center w-[130px]">Open Cart</Link> : <button
+                className="bg-green-dark p-3  text-center rounded-sm text-white disabled:opacity-50  w-[130px]"
                 onClick={addToCart}
                 disabled={product.price === undefined || product === undefined || isError || isLoading}
               >

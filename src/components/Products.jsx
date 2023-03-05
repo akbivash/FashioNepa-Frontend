@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Product from '../components/Product'
 import { useFetch } from "../customhooks/useFetch";
 import Loading from './Loading'
 
 const Products = ({ filters, sort }) => {
-
-
+  const category = useParams().category
+const[wrongRoute, setWrongRoute] = useState(false)
   const { isError, isLoading,  products} = useFetch()
 
 const[filteredProducts,setFilteredProducts] = useState(products)
+const categories = ["women'sshoes",'cap','sportsentertainment',"men'sshoes", "90'sfashion","madeinnepal"]
 
 useEffect(() => {
+  if(!isError && category !== undefined && !categories.includes(category)){
+   setWrongRoute(true)
+  }else{
+    setWrongRoute(false)
+  }
+
 setFilteredProducts(products.sort((a,b) => {
   return new Date(b.createdAt) - new Date(a.createdAt)
 }))
@@ -56,17 +64,16 @@ return product
    }))
  }
   }, [ sort]);
-  
   return (
     <>
-      <div className='grid grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))] justify-center place-content-center  md:grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2'>
+      <div className='grid grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))] justify-center  md:grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2 min-h-screen'>
        {  filteredProducts.length !== 0 && filteredProducts.map(item => {
             return <Product item={item} key={item._id}   />;
           })
        }
 {isError && <span className="text-center py-20">Failed to fetch, try again 😐</span>}
       {!isError && isLoading &&  <span className="py-20"><Loading /></span>}
-       {filteredProducts.length === 0 && ( filters.color !== undefined || filters.size !== undefined) && <span className="text-center">No result found</span>}
+       {wrongRoute && <span className="text-center text-red-default">Wrong route !</span>}
       </div>
     </>
   );

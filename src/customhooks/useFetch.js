@@ -17,8 +17,8 @@ export const useFetch = () => {
     }
 useEffect(() => {
     const getProducts = async () => {
-        setIsLoading(true)
         try {
+            setIsLoading(true)
 
             const res = await publicRequest.get(`api/v1/products/` );
             setAllProducts(res.data)
@@ -33,8 +33,8 @@ useEffect(() => {
 
     useEffect(() => {
         const getProducts = async () => {
-            setIsLoading(true)
             try {
+                setIsLoading(true)
 
                 const res = await publicRequest.get(
                     category
@@ -54,8 +54,9 @@ useEffect(() => {
 
     useEffect(() => {
         const getProduct = async () => {
-            setIsLoading(true)
             try {
+            setIsLoading(true)
+
                 const res = await publicRequest.get(`api/v1/products/${id}`)
                 setProduct(res.data)
 
