@@ -10,11 +10,13 @@ const[wrongRoute, setWrongRoute] = useState(false)
   const { isError, isLoading,  products} = useFetch()
 
 const[filteredProducts,setFilteredProducts] = useState(products)
-const categories = ["women'sshoes",'cap','sportsentertainment',"men'sshoes", "90'sfashion","madeinnepal"]
+const categories = ["women'sshoes",'cap','sportsentertainment',"men'sshoes", "90'sfashion","madeinnepal","women'sfashion","men'sfashion"]
+
 
 useEffect(() => {
   if(!isError && category !== undefined && !categories.includes(category)){
    setWrongRoute(true)
+   
   }else{
     setWrongRoute(false)
   }
@@ -43,7 +45,6 @@ return product
       })
     ); 
 
-    
   }, [ filters]);
   useEffect(() => {
  
@@ -74,6 +75,7 @@ return product
 {isError && <span className="text-center py-20">Failed to fetch, try again 😐</span>}
       {!isError && isLoading &&  <span className="py-20"><Loading /></span>}
        {wrongRoute && <span className="text-center text-red-default">Wrong route !</span>}
+       {(filters.size !== undefined || filters.color !== undefined) && filteredProducts.length === 0 && <span className="text-center">No items found</span>}
       </div>
     </>
   );
